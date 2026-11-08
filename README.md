@@ -146,3 +146,14 @@ tomsk-monolit/
     ├── images/            # иллюстрации, постер, OG, favicon
     └── fonts/             # локальные WOFF2
 ```
+
+## Публикация на Render (бесплатно)
+
+1. Создайте аккаунт на [render.com](https://render.com) и войдите через GitHub.
+2. **New → Web Service → Connect repository** → выберите `delicvova95-glitch/Monolit-`.
+3. Render подхватит `render.yaml`: сборка `pip install -r requirements.txt`, запуск Gunicorn, автогенерация `SECRET_KEY` — менять ничего не нужно, нажмите **Deploy**.
+4. Через несколько минут сайт получит публичный адрес вида `https://tomsk-monolit.onrender.com`.
+5. В **Settings → Environment** при желании задайте Telegram/SMTP-переменные из `.env.example`.
+6. Каждый `git push` в `main` автоматически обновляет сайт.
+
+База SQLite создаётся автоматически при первом запуске (`database/schema.sql`).
