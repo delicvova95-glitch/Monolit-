@@ -1,0 +1,21 @@
+{% extends "admin/base.html" %}
+{% block title %}Содержимое и настройки{% endblock %}
+{% block content %}
+<div class="page-heading"><div><h1>Содержимое и настройки</h1><p>Изменения появятся на главной странице сразу после сохранения.</p></div></div>
+<form method="post">
+<input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+<div class="content-sections">
+<div>
+<section class="panel"><h2>Калькулятор</h2><p class="panel-intro">Базовые нормы без запаса. Посетитель выбирает запас отдельно.</p><div class="form-grid"><label class="form-field"><span>Брусчатка, шт. на м²</span><input type="number" name="paver_rate" min="0.01" max="10000" step="0.01" value="{{ settings.paver_rate }}" required></label><label class="form-field"><span>Бордюр, шт. на пог. м</span><input type="number" name="border_rate" min="0.01" max="10000" step="0.01" value="{{ settings.border_rate }}" required></label></div></section>
+<section class="panel"><h2>Информация о доставке</h2><label class="form-field"><span>Текст на главной странице</span><textarea name="delivery_text" maxlength="2000" required>{{ settings.delivery_text }}</textarea><small>Указывайте только подтверждённые условия и тарифы.</small></label></section>
+<section class="panel"><h2>Контактная информация</h2><p class="panel-intro">Пустые поля на сайте будут обозначены как требующие заполнения.</p>
+{% for key, label in setting_labels.items() %}<label class="form-field"><span>{{ label }}</span>{% if key in ('messengers', 'company_details') %}<textarea name="{{ key }}" maxlength="2000">{{ settings[key] }}</textarea>{% else %}<input type="text" name="{{ key }}" maxlength="2000" value="{{ settings[key] }}" {% if key == 'contact_email' %}type="email"{% endif %}>{% endif %}</label>{% endfor %}
+</section>
+</div>
+<div>
+{% for product in products %}<section class="panel"><h2>{{ product.name }}</h2><p class="panel-intro">{{ product.dimensions }} · {{ product.consumption }}</p><label class="form-field"><span>Описание товара</span><textarea name="{{ product.slug }}_description" maxlength="1500" required>{{ product.description }}</textarea></label><label class="form-field"><span>Цена, ₽ {{ product.price_unit }}</span><input type="number" name="{{ product.slug }}_price" min="0" max="100000000" step="0.01" value="{{ product.price if product.price is not none else '' }}"><small>Оставьте пустым, чтобы на сайте отображалось «Стоимость по запросу».</small></label></section>{% endfor %}
+</div>
+</div>
+<div class="form-actions"><button class="button" type="submit">Сохранить все изменения</button><a class="button button-secondary" href="{{ url_for('index') }}" target="_blank" rel="noopener">Посмотреть сайт ↗</a></div>
+</form>
+{% endblock %}

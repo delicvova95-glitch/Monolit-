@@ -1,0 +1,17 @@
+{% extends "admin/base.html" %}
+{% block title %}Заявки{% endblock %}
+{% block content %}
+<div class="page-heading"><div><h1>Заявки</h1><p>Контакты, количество изделий и состояние обработки заказов.</p></div></div>
+<div class="stats">
+    <a class="stat" href="{{ url_for('admin_dashboard', status='new') }}"><strong>{{ counts.get('new', 0) }}</strong><span>Новые</span></a>
+    <a class="stat" href="{{ url_for('admin_dashboard', status='processing') }}"><strong>{{ counts.get('processing', 0) }}</strong><span>В работе</span></a>
+    <a class="stat" href="{{ url_for('admin_dashboard', status='completed') }}"><strong>{{ counts.get('completed', 0) }}</strong><span>Завершены</span></a>
+    <a class="stat" href="{{ url_for('admin_dashboard', status='cancelled') }}"><strong>{{ counts.get('cancelled', 0) }}</strong><span>Отменены</span></a>
+</div>
+<nav class="filters" aria-label="Фильтр заявок"><a href="{{ url_for('admin_dashboard') }}" {% if not current_status %}class="active"{% endif %}>Все заявки</a>{% for key, label in order_statuses.items() %}<a href="{{ url_for('admin_dashboard', status=key) }}" {% if current_status == key %}class="active"{% endif %}>{{ label }}</a>{% endfor %}</nav>
+{% if orders %}
+<div class="table-wrap"><table class="orders-table"><thead><tr><th>Заявка</th><th>Клиент</th><th>Брусчатка</th><th>Бордюр</th><th>Населённый пункт</th><th>Статус</th></tr></thead><tbody>
+{% for order in orders %}<tr><td><a class="order-link" href="{{ url_for('admin_order', order_id=order.id) }}">№{{ order.id }}</a><span class="order-phone">{{ order.created_at }}</span></td><td>{{ order.name }}<a class="order-phone" href="tel:{{ order.phone }}">{{ order.phone }}</a></td><td>{{ order.paver_qty }} шт.</td><td>{{ order.border_qty }} шт.</td><td>{{ order.city }}</td><td><span class="status status-{{ order.status }}">{{ order_statuses[order.status] }}</span></td></tr>{% endfor %}
+</tbody></table></div>
+{% else %}<div class="empty">В этой категории пока нет заявок.</div>{% endif %}
+{% endblock %}

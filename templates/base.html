@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0b1f33">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    {% block meta %}
+    <title>Томск Монолит — тротуарная плитка и бетонные бордюры</title>
+    <meta name="description" content="Производство и продажа бетонной брусчатки и бордюров в Томске. Расчёт количества материалов и доставка по Томску и Томской области.">
+    {% endblock %}
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:site_name" content="Томск Монолит">
+    <meta property="og:title" content="Томск Монолит — бетонные изделия для благоустройства">
+    <meta property="og:description" content="Брусчатка и бордюры для дорожек, дворов и современных пространств.">
+    <meta property="og:image" content="{{ url_for('static', filename='images/og-cover.jpg', _external=True) }}">
+    <meta property="og:url" content="{{ request.base_url }}">
+    <link rel="canonical" href="{{ request.base_url }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/logo-mark.png') }}?v=20261108" type="image/png">
+    <link rel="preload" href="{{ url_for('static', filename='fonts/gill-sans-semibold.woff2') }}" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=20261108-premium-7">
+    {% block head %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+    <a class="skip-link" href="#main">Перейти к содержанию</a>
+    <header class="site-header" data-header>
+        <a class="brand" href="{{ url_for('index') }}" aria-label="Томск Монолит — на главную">
+            <img class="brand-logo" src="{{ url_for('static', filename='images/logo-dark.png') }}?v=20261108" alt="Томск Монолит" width="691" height="160">
+        </a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-menu-toggle>
+            <span></span><span></span><span class="sr-only">Открыть меню</span>
+        </button>
+        <nav class="site-nav" id="site-nav" aria-label="Основная навигация" data-nav>
+            <a href="{{ url_for('index') }}#catalog">Продукция</a>
+            <a href="{{ url_for('index') }}#calculator">Калькулятор</a>
+            <a href="{{ url_for('index') }}#delivery">Доставка</a>
+            <a href="{{ url_for('index') }}#works">Примеры</a>
+            <a href="{{ url_for('index') }}#contacts">Контакты</a>
+        </nav>
+        <a class="button button-small header-cta" href="{{ url_for('index') }}#quick-order">Оставить заявку <span aria-hidden="true">↗</span></a>
+    </header>
+    <main id="main">
+        {% block content %}{% endblock %}
+    </main>
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a class="brand" href="{{ url_for('index') }}">
+                    <img class="brand-logo" src="{{ url_for('static', filename='images/logo-dark.png') }}?v=20261108" alt="Томск Монолит" width="691" height="160">
+                </a>
+                <p>Тротуарная плитка и бордюры от производителя. Материалы для благоустройства территорий в Томске и Томской области.</p>
+            </div>
+            <nav class="footer-col" aria-label="Разделы сайта">
+                <span>Разделы</span>
+                <a href="{{ url_for('index') }}#catalog">Продукция</a>
+                <a href="{{ url_for('index') }}#calculator">Калькулятор</a>
+                <a href="{{ url_for('index') }}#delivery">Доставка</a>
+                <a href="{{ url_for('index') }}#works">Примеры</a>
+                <a href="{{ url_for('index') }}#contacts">Контакты</a>
+            </nav>
+            <nav class="footer-col" aria-label="Действия">
+                <span>Покупателю</span>
+                <a href="{{ url_for('index') }}#calculator">Рассчитать стоимость</a>
+                <a href="{{ url_for('index') }}#quick-order">Оставить заявку</a>
+                <a href="{{ url_for('index') }}#faq">Вопросы и ответы</a>
+                <a href="{{ url_for('policy') }}">Обработка персональных данных</a>
+            </nav>
+        </div>
+        <div class="footer-bottom">
+            <span>© <span data-current-year></span> Томск Монолит</span>
+        </div>
+    </footer>
+    <nav class="mobile-nav" aria-label="Быстрая навигация">
+        <a href="{{ url_for('index') }}#catalog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="8" height="8"/><rect x="13" y="3" width="8" height="8"/><rect x="3" y="13" width="8" height="8"/><rect x="13" y="13" width="8" height="8"/></svg>Продукция</a>
+        <a href="{{ url_for('index') }}#calculator"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M8 7h8M8 12h.01M12 12h.01M16 12h.01M8 16h.01M12 16h.01M16 16h.01"/></svg>Расчёт</a>
+        <a href="{{ url_for('index') }}#quick-order" class="mobile-nav-cta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 4h14v16H5z"/><path d="M9 8h6M9 12h6M9 16h4"/></svg>Заявка</a>
+        <button type="button" data-mobile-contact><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Связь</button>
+    </nav>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

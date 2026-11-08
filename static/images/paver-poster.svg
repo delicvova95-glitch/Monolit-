@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700" role="img" aria-labelledby="title">
+<title id="title">Бетонная брусчатка</title>
+<defs>
+<linearGradient id="top" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#96988f"/><stop offset=".55" stop-color="#82857c"/><stop offset="1" stop-color="#6f7269"/></linearGradient>
+<linearGradient id="front" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#6d7067"/><stop offset="1" stop-color="#484c45"/></linearGradient>
+<linearGradient id="side"><stop stop-color="#5f6259"/><stop offset="1" stop-color="#3c403a"/></linearGradient>
+<filter id="concrete" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency=".45" numOctaves="3" seed="8" result="n"/><feColorMatrix in="n" type="saturate" values="0" result="g"/><feBlend in="SourceGraphic" in2="g" mode="soft-light"/><feComposite in2="SourceAlpha" operator="in"/></filter>
+<filter id="shadow" x="-40%" y="-100%" width="180%" height="300%"><feGaussianBlur stdDeviation="25"/></filter>
+</defs>
+<ellipse cx="482" cy="514" rx="308" ry="52" fill="#000" opacity=".34" filter="url(#shadow)"/>
+<g filter="url(#concrete)">
+<path d="M159 283 588 156 764 286 329 432Z" fill="url(#top)" stroke="#a5a69d" stroke-width="2"/>
+<path d="M329 432 764 286 760 371 329 513Z" fill="url(#front)"/>
+<path d="M159 283 329 432 329 513 159 359Z" fill="url(#side)"/>
+</g>
+<path d="M177 291 588 171 743 286 329 417Z" fill="none" stroke="#b4b5ab" stroke-opacity=".25"/>
+<path d="M329 432 764 286" stroke="#92958b" stroke-opacity=".4"/>
+</svg>

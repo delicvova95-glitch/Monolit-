@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow"><meta name="theme-color" content="#292d32">
+    <title>Вход в панель управления — Томск Монолит</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.svg') }}" type="image/svg+xml">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body class="login-page">
+<main class="login-card">
+    <h1>Панель управления</h1><p>Войдите, чтобы управлять сайтом «Томск Монолит».</p>
+    {% with messages = get_flashed_messages(with_categories=true) %}{% for category, message in messages %}<div class="flash flash-{{ category }}" role="alert">{{ message }}</div>{% endfor %}{% endwith %}
+    <form method="post">
+        <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+        <label class="form-field"><span>Логин</span><input type="text" name="username" autocomplete="username" required autofocus></label>
+        <label class="form-field"><span>Пароль</span><input type="password" name="password" autocomplete="current-password" required></label>
+        <button class="button" type="submit">Войти</button>
+    </form>
+    <a class="login-back" href="{{ url_for('index') }}">← Вернуться на сайт</a>
+    <p class="login-note">Доступ настраивается через переменные окружения ADMIN_USERNAME и ADMIN_PASSWORD_HASH. Пароль не хранится в базе или коде.</p>
+</main>
+</body>
+</html>
