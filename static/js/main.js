@@ -1,5 +1,5 @@
-import { initCalculator } from './calculator.js?v=20261107-premium-2';
-import { initOrderForm } from './form.js?v=20261107-premium-2';
+import { initCalculator } from './calculator.js?v=20261109-premium-3';
+import { initOrderForm } from './form.js?v=20261109-premium-3';
 import { initGallery } from './gallery.js';
 
 const header = document.querySelector('[data-header]');
@@ -134,7 +134,7 @@ if (!reducedMotion.matches && 'IntersectionObserver' in window) {
 
 const canRender3D = window.matchMedia('(min-width: 801px)').matches && !reducedMotion.matches;
 if (canRender3D && document.querySelector('#scene')) {
-    import('./three-scene.js?v=20261107-horizontal')
+    import('./three-scene.js?v=20261109-premium-3')
         .then(module => module.initThreeScene())
         .catch(() => document.querySelector('[data-scene-loader]')?.remove());
 }

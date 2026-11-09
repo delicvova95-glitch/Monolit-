@@ -31,7 +31,7 @@ Path(app.config["DATABASE"]).parent.mkdir(parents=True, exist_ok=True)
 
 DEFAULT_SETTINGS = {
     "paver_rate": "50",
-    "border_rate": "2.5",
+    "border_rate": "1",
     "delivery_text": "Доставка осуществляется по Томску и Томской области. Стоимость и условия доставки согласовываются с менеджером при оформлении заявки.",
     "contact_phone": "",
     "contact_email": "",
@@ -83,7 +83,7 @@ def init_db():
         (slug, name, dimensions, consumption, description) VALUES (?, ?, ?, ?, ?)""",
         (
             "paver", "Брусчатка", "100 × 200 × 60 мм",
-            "Ориентировочно 50 шт./м²",
+            "50 шт./м²",
             "Прямоугольная бетонная брусчатка для мощения дорожек, дворовых территорий и площадок.",
         ),
     )
@@ -92,7 +92,7 @@ def init_db():
         (slug, name, dimensions, consumption, description) VALUES (?, ?, ?, ?, ?)""",
         (
             "border", "Бордюр", "200 × 50 × 400 мм",
-            "Ориентировочно 2,5 шт./пог. м",
+            "1 шт./пог. м",
             "Бетонный элемент для оформления границ дорожек и зон мощения. Длина изделия — 400 мм.",
         ),
     )
@@ -131,7 +131,7 @@ def public_settings():
         settings["border_rate"] = float(settings["border_rate"])
     except (TypeError, ValueError):
         settings["paver_rate"] = 50.0
-        settings["border_rate"] = 2.5
+        settings["border_rate"] = 1.0
     return settings
 
 
@@ -227,8 +227,6 @@ def validate_order(data):
     digits = re.sub(r"\D", "", phone)
     if not 10 <= len(digits) <= 15 or not re.fullmatch(r"[+\d\s()\-]+", phone):
         errors["phone"] = "Укажите корректный номер телефона."
-    if not is_callback and len(city) < 2:
-        errors["city"] = "Укажите населённый пункт."
     quantities = {}
     for field in ("paver_qty", "border_qty"):
         raw = str(data.get(field, "0") or "0").strip()
@@ -460,7 +458,7 @@ def admin_content():
             for slug in ("paver", "border"):
                 rate = f"{rates['paver_rate' if slug == 'paver' else 'border_rate']:g}".replace(".", ",")
                 unit = "м²" if slug == "paver" else "пог. м"
-                consumption = f"Ориентировочно {rate} шт./{unit}"
+                consumption = f"{rate} шт./{unit}"
                 db.execute(
                     "UPDATE products SET description = ?, price = ?, consumption = ? WHERE slug = ?",
                     (descriptions[slug], prices[slug], consumption, slug),

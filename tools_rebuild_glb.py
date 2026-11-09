@@ -11,7 +11,7 @@ from PIL import Image, ImageDraw
 SRC = "concrete block 3d model.glb"
 DST = "tomsk-monolit/static/models/concrete-block-natural.glb"
 EMBOSS = False          # True — вдавить надпись «МОНОЛИТ» в верхнюю грань
-MARKING = True          # True — плоская тёмно-серая маркировка на верхней грани
+MARKING = False         # True — плоская тёмно-серая маркировка на верхней грани
 DEPTH = -0.024          # emboss depth in original coords (~4.4 mm after scaling)
 TOP_Y = 0.302           # top-face threshold
 
@@ -143,7 +143,7 @@ pores = np.clip(pores*1.6, 0, 1)
 height -= pores*0.35
 
 # albedo: mid grey cement, target mean ~ (150,152,147)
-lum = 122 + (low-0.5)*20 + (fine_blur-0.5)*14 - pores*42
+lum = 122 + (low-0.5)*26 + (fine_blur-0.5)*18 - pores*46
 lum = np.clip(lum, 78, 175)
 r = lum*1.000; g = lum*1.008; b = lum*0.975   # very slight warm-neutral cement tint
 albedo = np.stack([r,g,b],axis=-1).astype(np.uint8)
@@ -211,12 +211,12 @@ if MARKING:
           "| text world: %.3f x %.3f" % (w_w, h_w), "| font:", font_path)
 
 # roughness/metallic (glTF: G=roughness, B=metallic)
-rough = np.clip(245 + (fine_blur-0.5)*14 + pores*10, 225, 255).astype(np.uint8)
+rough = np.clip(238 + (fine_blur-0.5)*24 + pores*16, 205, 255).astype(np.uint8)
 mr = np.zeros((S,S,3), dtype=np.uint8); mr[...,1]=rough; mr[...,2]=0
 img_mr = Image.fromarray(mr, 'RGB')
 
 # normal map from height
-hs = height*20.0
+hs = height*30.0
 gy, gx = np.gradient(hs)
 nz = np.ones_like(hs)
 n = np.stack([-gx, gy, nz], axis=-1)   # glTF: Y up (OpenGL)
@@ -286,7 +286,7 @@ pbr = mat['pbrMetallicRoughness']
 pbr['baseColorFactor'] = [1.0,1.0,1.0,1.0]
 pbr['metallicFactor'] = 0.0
 pbr['roughnessFactor'] = 1.0
-mat['normalTexture'] = {'index':2,'scale':0.5}
+mat['normalTexture'] = {'index':2,'scale':0.9}
 
 if MARKING:
     gltf['textures'].append({'source':len(gltf['images'])-1,'sampler':0})

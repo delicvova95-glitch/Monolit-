@@ -16,7 +16,7 @@ function createShadow() {
     const texture = new THREE.CanvasTexture(canvas);
     const mesh = new THREE.Mesh(
         new THREE.PlaneGeometry(5.6, 4.1),
-        new THREE.MeshBasicMaterial({ map: texture, transparent: true, depthWrite: false }),
+        new THREE.MeshBasicMaterial({ map: texture, transparent: true, depthWrite: false, opacity: .55 }),
     );
     mesh.rotation.x = -Math.PI / 2;
     mesh.position.y = -.04;
@@ -45,7 +45,9 @@ export function initThreeScene() {
     renderer.setClearColor(0x000000, 0);
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = .95;
+    renderer.toneMappingExposure = 1.02;
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     container.appendChild(renderer.domElement);
     renderer.domElement.setAttribute('aria-hidden', 'true');
 
@@ -56,9 +58,18 @@ export function initThreeScene() {
     room.dispose();
     pmrem.dispose();
 
-    scene.add(new THREE.HemisphereLight(0xeeeade, 0x23282c, .6));
-    const keyLight = new THREE.DirectionalLight(0xfff3de, 1.7);
+    scene.add(new THREE.HemisphereLight(0xeeeade, 0x23282c, .55));
+    const keyLight = new THREE.DirectionalLight(0xfff3de, 2.1);
     keyLight.position.set(-3.2, 5.2, 4);
+    keyLight.castShadow = true;
+    keyLight.shadow.mapSize.set(1024, 1024);
+    keyLight.shadow.camera.near = 1;
+    keyLight.shadow.camera.far = 15;
+    keyLight.shadow.camera.left = -2.6;
+    keyLight.shadow.camera.right = 2.6;
+    keyLight.shadow.camera.top = 2.6;
+    keyLight.shadow.camera.bottom = -2.6;
+    keyLight.shadow.bias = -.0004;
     scene.add(keyLight);
     const edgeLight = new THREE.DirectionalLight(0xc2cfd6, .55);
     edgeLight.position.set(4.2, 2.2, -4.2);
@@ -71,6 +82,15 @@ export function initThreeScene() {
     root.rotation.set(.1, -.5, -.05);
     root.scale.setScalar(1.3);
     scene.add(root, createShadow());
+
+    const shadowCatcher = new THREE.Mesh(
+        new THREE.PlaneGeometry(6.5, 6.5),
+        new THREE.ShadowMaterial({ opacity: .32 }),
+    );
+    shadowCatcher.rotation.x = -Math.PI / 2;
+    shadowCatcher.position.y = -.02;
+    shadowCatcher.receiveShadow = true;
+    scene.add(shadowCatcher);
 
     let targetProgress = 0;
     let currentProgress = 0;
@@ -141,7 +161,7 @@ export function initThreeScene() {
     animate(performance.now());
 
     new GLTFLoader().load(
-        container.dataset.modelUrl || '/static/models/concrete-block-natural.glb?v=20261107-nomark',
+        container.dataset.modelUrl || '/static/models/concrete-block-natural.glb?v=20261109-nomark',
         gltf => {
             const model = gltf.scene;
             const bounds = new THREE.Box3().setFromObject(model);
@@ -154,7 +174,8 @@ export function initThreeScene() {
                 child.material.color.set(0xffffff);
                 child.material.metalness = 0;
                 child.material.roughness = 1;
-                child.material.envMapIntensity = .3;
+                child.material.envMapIntensity = .38;
+                child.castShadow = true;
             });
             root.add(model);
             container.classList.add('is-ready');

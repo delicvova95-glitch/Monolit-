@@ -17,7 +17,7 @@
 <section class="hero" aria-labelledby="hero-title" data-hero>
     <div class="hero-sticky">
         <div class="hero-backdrop" aria-hidden="true"></div>
-        <div class="hero-scene" id="scene" aria-label="Объёмная модель бетонной брусчатки" data-model-url="{{ url_for('static', filename='models/concrete-block-natural.glb') }}?v=20261107-nomark">
+        <div class="hero-scene" id="scene" aria-label="Объёмная модель бетонной брусчатки" data-model-url="{{ url_for('static', filename='models/concrete-block-natural.glb') }}?v=20261109-nomark">
             <img class="scene-poster" src="{{ url_for('static', filename='images/paver-poster.svg') }}?v=20261107-nomark" alt="Бетонная брусчатка" width="900" height="700" fetchpriority="high" data-scene-poster>
             <div class="scene-loader" data-scene-loader><span></span>Загружаем 3D</div>
         </div>
@@ -100,7 +100,6 @@
 <section class="section section-stone calculators" id="calculator" aria-labelledby="calculator-title" data-calculators data-paver-rate="{{ settings.paver_rate }}" data-border-rate="{{ settings.border_rate }}">
     <div class="section-heading section-heading-inline">
         <div><span class="section-number">04 / РАСЧЁТ</span><h2 id="calculator-title">Рассчитайте<br>свой заказ</h2></div>
-        <p>Два независимых калькулятора. Укажите размеры участка — результат можно сразу перенести в заявку.</p>
     </div>
     <div class="calculators-grid">
         <article class="calc-card" data-calc="paver" aria-labelledby="calc-paver-title">
@@ -130,7 +129,7 @@
             <header class="calc-head">
                 <div><span class="calc-index">К·02 / БОРДЮР</span><h3 id="calc-border-title">По длине границ</h3></div>
                 <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 23 23 5l4 4-18 18H5v-4Z"/><path d="m8 20 3 3m2-7 3 3m2-7 3 3"/></svg>
-                <p>200 × 50 × 400 мм · {{ settings.border_rate|replace('.', ',') }} шт./пог. м</p>
+                <p>200 × 50 × 400 мм · {{ ('%g'|format(settings.border_rate))|replace('.', ',') }} шт./пог. м</p>
             </header>
             <label class="field">
                 <span>Общая длина границ</span>
@@ -143,7 +142,7 @@
             <button class="button button-primary button-wide" type="button" data-use-calculation>Перенести в заявку <span aria-hidden="true">↗</span></button>
         </article>
     </div>
-    <p class="calculator-note">Расчёт предварительный и не учитывает особенности раскладки и геометрию участка. Результат округляется вверх до целого изделия. Итог можно изменить в заявке.</p>
+    <p class="calculator-note">Расчёт предварительный, результат округляется вверх до целого изделия. Итог можно изменить в заявке.</p>
 </section>
 
 <section class="section delivery" id="delivery" aria-labelledby="delivery-title">
@@ -238,13 +237,13 @@
 <section class="section section-stone faq" id="faq" aria-labelledby="faq-title">
     <div class="section-heading"><span class="section-number">08 / ВОПРОСЫ</span><h2 id="faq-title">Коротко<br>о важном</h2><p>Подробности заказа и доставки можно уточнить в заявке.</p></div>
     <div class="faq-list">
-        <details><summary>Сколько брусчатки необходимо на 1 м²?<span></span></summary><p>Для брусчатки размером 100 × 200 мм ориентировочно требуется {{ settings.paver_rate|int }} штук на квадратный метр без учёта запаса.</p></details>
-        <details><summary>Сколько бордюров нужно на участок?<span></span></summary><p>Изделие длиной 400 мм требует ориентировочно {{ settings.border_rate|replace('.', ',') }} штуки на погонный метр. Умножьте общую длину границ на эту норму.</p></details>
+        <details><summary>Сколько брусчатки необходимо на 1 м²?<span></span></summary><p>Для брусчатки размером 100 × 200 мм требуется {{ settings.paver_rate|int }} штук на квадратный метр без учёта запаса.</p></details>
+        <details><summary>Сколько бордюров нужно на участок?<span></span></summary><p>Изделие длиной 400 мм — {{ ('%g'|format(settings.border_rate))|replace('.', ',') }} штука на погонный метр. Количество бордюров равно общей длине границ в метрах.</p></details>
         <details><summary>Как рассчитать количество материалов?<span></span></summary><p>Для брусчатки введите площадь в м² и при необходимости добавьте запас. Для бордюра укажите длину в погонных метрах; запас в этом калькуляторе не добавляется. Результат округляется вверх до целого изделия.</p></details>
         <details><summary>Можно ли заказать оба изделия?<span></span></summary><p>Да, укажите количество брусчатки и бордюров в одной заявке. Менеджер уточнит детали заказа.</p></details>
         <details><summary>Как узнать стоимость?<span></span></summary><p>Если цена не указана в каталоге, оставьте заявку с нужным количеством. Актуальную стоимость сообщит менеджер.</p></details>
         <details><summary>Есть ли доставка?<span></span></summary><p>Да, по Томску и Томской области. Стоимость и условия согласовываются индивидуально при оформлении.</p></details>
-        <details><summary>Как оформить заказ?<span></span></summary><p>Заполните форму заявки: укажите контакты, количество изделий и населённый пункт. Для связи используйте контакты, опубликованные на сайте.</p></details>
+        <details><summary>Как оформить заказ?<span></span></summary><p>Заполните форму заявки: укажите контакты и количество изделий. Для связи используйте контакты, опубликованные на сайте.</p></details>
     </div>
 </section>
 
@@ -266,8 +265,7 @@
             <label class="field"><span>Телефон *</span><input type="tel" name="phone" autocomplete="tel" maxlength="30" required placeholder="+7 ___ ___-__-__"><small data-error-for="phone"></small></label>
             <label class="field"><span>Брусчатка, шт.</span><input type="number" name="paver_qty" min="0" max="1000000" step="1" value="0" inputmode="numeric"><small data-error-for="paver_qty"></small></label>
             <label class="field"><span>Бордюр, шт.</span><input type="number" name="border_qty" min="0" max="1000000" step="1" value="0" inputmode="numeric"><small data-error-for="border_qty"></small></label>
-            <label class="field"><span>Населённый пункт *</span><input type="text" name="city" autocomplete="address-level2" maxlength="120" required placeholder="Томск"><small data-error-for="city"></small></label>
-            <label class="field"><span>Адрес доставки</span><input type="text" name="address" autocomplete="street-address" maxlength="250" placeholder="Можно уточнить позже"><small data-error-for="address"></small></label>
+            <label class="field field-full"><span>Адрес доставки</span><input type="text" name="address" autocomplete="street-address" maxlength="250" placeholder="Город, улица — можно уточнить позже"><small data-error-for="address"></small></label>
             <label class="field field-full"><span>Комментарий</span><textarea name="comment" rows="3" maxlength="1500" placeholder="Особенности участка, пожелания по заказу"></textarea><small data-error-for="comment"></small></label>
         </div>
         <label class="honeypot" aria-hidden="true">Сайт<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
@@ -333,5 +331,5 @@
 {% endblock %}
 
 {% block scripts %}
-<script type="module" src="{{ url_for('static', filename='js/main.js') }}?v=20261107-premium-3"></script>
+<script type="module" src="{{ url_for('static', filename='js/main.js') }}?v=20261109-premium-3"></script>
 {% endblock %}

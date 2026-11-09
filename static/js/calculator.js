@@ -4,7 +4,7 @@ export function initCalculator() {
 
     const rates = {
         paver: Number(section.dataset.paverRate) || 50,
-        border: Number(section.dataset.borderRate) || 2.5,
+        border: Number(section.dataset.borderRate) || 1,
     };
     const formatter = new Intl.NumberFormat('ru-RU');
 
@@ -51,7 +51,7 @@ export function initCalculator() {
             const target = document.querySelector(`#order [name="${result.product}_qty"]`);
             if (target) target.value = result.total;
             document.querySelector('#order')?.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth' });
-            window.setTimeout(() => document.querySelector('#order [name="city"]')?.focus({ preventScroll: true }), reducedMotion ? 0 : 650);
+            window.setTimeout(() => document.querySelector('#order [name="name"]')?.focus({ preventScroll: true }), reducedMotion ? 0 : 650);
         });
 
         calculate();
