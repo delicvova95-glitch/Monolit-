@@ -501,10 +501,4 @@ html,body{overflow-x:clip}
 .gallery-grid .gallery-item:nth-child(n) img{height:280px}
 }
 
-.features-media{min-height:560px}
-.features-media-main{width:100%}
-.features-media-detail{display:none}
-@media(max-width:800px){
-.site-nav{margin-left:0}
-.features-media{min-height:400px}
-}
+@media(max-width:800px){.site-nav{margin-left:0}}

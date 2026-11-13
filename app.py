@@ -80,20 +80,22 @@ def init_db():
     )
     db.execute(
         """INSERT OR IGNORE INTO products
-        (slug, name, dimensions, consumption, description) VALUES (?, ?, ?, ?, ?)""",
+        (slug, name, dimensions, consumption, description, price, price_unit) VALUES (?, ?, ?, ?, ?, ?, ?)""",
         (
             "paver", "Брусчатка", "100 × 200 × 60 мм",
             "50 шт./м²",
             "Прямоугольная бетонная брусчатка для мощения дорожек, дворовых территорий и площадок.",
+            850, "за м²",
         ),
     )
     db.execute(
         """INSERT OR IGNORE INTO products
-        (slug, name, dimensions, consumption, description) VALUES (?, ?, ?, ?, ?)""",
+        (slug, name, dimensions, consumption, description, price, price_unit) VALUES (?, ?, ?, ?, ?, ?, ?)""",
         (
             "border", "Бордюр", "200 × 50 × 400 мм",
             "1 шт./пог. м",
             "Бетонный элемент для оформления границ дорожек и зон мощения. Длина изделия — 400 мм.",
+            350, "за штуку",
         ),
     )
     db.commit()
