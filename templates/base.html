@@ -19,7 +19,7 @@
     <link rel="canonical" href="{{ request.base_url }}">
     <link rel="icon" href="{{ url_for('static', filename='images/logo-mark.png') }}?v=20261108" type="image/png">
     <link rel="preload" href="{{ url_for('static', filename='fonts/manrope-cyrillic.woff2') }}" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=20261109-premium-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=20261113-figma-2">
     {% block head %}{% endblock %}
 </head>
 <body class="{% block body_class %}{% endblock %}">
@@ -38,6 +38,10 @@
             <a href="{{ url_for('index') }}#works">Примеры</a>
             <a href="{{ url_for('index') }}#contacts">Контакты</a>
         </nav>
+        <div class="header-contacts">
+            {% if settings is defined and settings.contact_phone %}<a href="tel:{{ settings.contact_phone|replace(' ', '')|replace('(', '')|replace(')', '')|replace('-', '') }}">{{ settings.contact_phone }}</a>{% endif %}
+            {% if settings is defined and settings.contact_email %}<a href="mailto:{{ settings.contact_email }}">{{ settings.contact_email }}</a>{% endif %}
+        </div>
         <a class="button button-small header-cta" href="{{ url_for('index') }}#quick-order">Оставить заявку <span aria-hidden="true">↗</span></a>
     </header>
     <main id="main">

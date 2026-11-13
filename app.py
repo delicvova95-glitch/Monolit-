@@ -33,11 +33,11 @@ DEFAULT_SETTINGS = {
     "paver_rate": "50",
     "border_rate": "1",
     "delivery_text": "Доставка осуществляется по Томску и Томской области. Стоимость и условия доставки согласовываются с менеджером при оформлении заявки.",
-    "contact_phone": "",
-    "contact_email": "",
-    "contact_address": "",
-    "work_hours": "",
-    "messengers": "",
+    "contact_phone": "+7 999 495 82 70",
+    "contact_email": "info@tomskmonolit.ru",
+    "contact_address": "Польская ул., 5, Томск, Томская обл., 634026",
+    "work_hours": "9:00–16:00 пн–сб",
+    "messengers": "Telegram · MAX",
     "company_details": "",
 }
 ORDER_STATUSES = {
