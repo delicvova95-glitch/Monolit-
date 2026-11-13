@@ -134,7 +134,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
 .calc-head h3{margin:0;font-family:Unbounded,Manrope,sans-serif;font-size:clamp(22px,2.1vw,33px);font-weight:550;line-height:1.25;letter-spacing:-.04em;color:var(--navy)}
 .calc-head p{grid-column:1/-1;margin:4px 0 0;font-size:13px;color:var(--muted)}
 .calc-card .field{margin-bottom:24px}
-.calc-result{margin-top:auto;padding:20px 24px 24px;border-radius:16px;background:linear-gradient(145deg,var(--navy),var(--navy-2));color:#fff;box-shadow:inset 0 1px rgba(255,255,255,.06)}
+.calc-result{margin-top:auto;padding:26px 30px 30px;border-radius:18px;background:linear-gradient(145deg,var(--navy),var(--navy-2));color:#fff;box-shadow:inset 0 1px rgba(255,255,255,.06)}
 .calc-result-label{display:block;margin-bottom:10px;font-size:9.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--gold-light)}
 .calc-row{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:11px 0;border-top:1px solid var(--dark-line);font-size:13px;color:#bdcad5}
 .calc-row output{font-variant-numeric:tabular-nums}
@@ -398,7 +398,10 @@ html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition
 .calc-card .field{margin-bottom:14px}
 .calc-card{padding:clamp(24px,2.4vw,36px)}
 .calc-card .input-with-unit input{padding:11px 14px;font-size:21px}
-.calc-result{margin-top:auto;padding:18px 22px 20px;border-radius:14px}
+.calc-result{margin-top:auto;padding:26px 30px 28px;border-radius:18px}
+.calc-result .calc-row{padding:14px 0;font-size:14px}
+.calc-result .calc-row-total{padding-top:22px}
+.calc-result .calc-row-total strong{font-size:clamp(36px,3.6vw,54px)}
 .calc-result-label{margin-bottom:6px}
 .calc-row{padding:8px 0}
 .calc-row-total{padding-top:12px}
