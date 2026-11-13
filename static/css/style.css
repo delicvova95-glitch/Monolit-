@@ -398,7 +398,7 @@ html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition
 .calc-card .field{margin-bottom:14px}
 .calc-card{padding:clamp(24px,2.4vw,36px)}
 .calc-card .input-with-unit input{padding:11px 14px;font-size:21px}
-.calc-result{margin-top:auto;padding:26px 30px 28px;border-radius:18px}
+.calc-result{margin-top:auto;padding:26px 30px 28px;border-radius:18px;min-height:196px;box-sizing:border-box}
 .calc-result .calc-row{padding:14px 0;font-size:14px}
 .calc-result .calc-row-total{padding-top:22px}
 .calc-result .calc-row-total strong{font-size:clamp(36px,3.6vw,54px)}
