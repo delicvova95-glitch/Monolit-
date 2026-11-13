@@ -396,9 +396,9 @@ html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition
 .calc-head{margin-bottom:16px}
 .calc-head h3{font-size:clamp(21px,2vw,30px)}
 .calc-card .field{margin-bottom:14px}
-.calc-card{padding:clamp(24px,2.4vw,36px)}
+.calc-card{padding:clamp(24px,2.4vw,36px);overflow:hidden}
 .calc-card .input-with-unit input{padding:11px 14px;font-size:21px}
-.calc-result{padding:14px 18px 16px}
+.calc-result{margin:auto calc(-1*clamp(24px,2.4vw,36px)) 0;padding:24px clamp(24px,2.4vw,36px);border-radius:0 0 23px 23px}
 .calc-result-label{margin-bottom:6px}
 .calc-row{padding:8px 0}
 .calc-row-total{padding-top:12px}
@@ -422,6 +422,11 @@ html,body{overflow-x:clip}
 .header-contacts{display:flex;flex-direction:column;align-items:flex-start;gap:2px;max-width:270px;margin-left:auto;font-size:10px;line-height:1.45;color:#c3cfda}
 .header-contacts a{overflow-wrap:anywhere;transition:color .2s}
 .header-contacts a:hover{color:var(--gold-light)}
+.header-social{display:flex;gap:8px;margin-left:14px}
+.header-social a{display:flex;align-items:center;justify-content:center;width:38px;height:38px;border:1px solid rgba(255,255,255,.22);border-radius:11px;color:#e9eef3;transition:color .2s,border-color .2s,transform .2s}
+.header-social a:hover{color:var(--gold-light);border-color:rgba(199,165,102,.6);transform:translateY(-1px)}
+.header-social svg{width:20px;height:20px}
+@media(max-width:1150px){.header-social{display:none}}
 .hero-tagline span{display:block}
 @media(max-width:1500px){.header-contacts{display:none}}
 @media(max-width:800px){.hero-tagline{max-width:430px}}
@@ -436,8 +441,8 @@ html,body{overflow-x:clip}
 .product-actions{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:20px}
 .product-actions .button{min-width:150px}
 .product-actions .text-link{justify-self:start}
-.product-price{max-width:none;margin:0;padding:14px 20px;border:0;border-radius:9px;background:#f8f8f6;text-align:center;white-space:nowrap;color:#9a783d}
-.product-price small{display:inline;color:inherit}
+.product-price{max-width:none;margin:0;padding:0;border:0;background:none;white-space:nowrap;color:var(--gold,#9a783d);font-family:Unbounded,Manrope,sans-serif;font-size:21px;font-weight:600;letter-spacing:-.02em}
+.product-price small{display:inline;color:inherit;font-size:.62em;font-weight:600}
 @media(max-width:1150px){
 .product-actions{grid-template-columns:auto 1fr}
 .product-price{grid-column:1/-1;justify-self:stretch}

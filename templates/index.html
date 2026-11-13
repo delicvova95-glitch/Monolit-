@@ -68,7 +68,7 @@
                 <div class="product-actions">
                     <button class="button button-primary product-order" type="button" data-order-product="{{ product.name }}">Купить <span aria-hidden="true">↗</span></button>
                     <a class="text-link" href="#calculator">Рассчитать количество <span aria-hidden="true">↓</span></a>
-                    <span class="product-price">{% if product.price is not none %}{{ product.price|int if product.price == product.price|int else product.price }} ₽ <small>{{ product.price_unit }}</small>{% else %}Стоимость по запросу{% endif %}</span>
+                    <span class="product-price">{% if product.price is not none %}{{ product.price|int if product.price == product.price|int else product.price }} <small>{{ product.price_unit }}</small>{% else %}Стоимость по запросу{% endif %}</span>
                 </div>
             </div>
         </article>
@@ -175,8 +175,8 @@
     </div>
     <div class="features-layout">
         <div class="features-media">
-            <figure class="features-media-main"><img src="{{ url_for('static', filename='images/production-crane.webp') }}?v=20261111" alt="Погрузка бетонных изделий на производстве" width="576" height="552" loading="lazy"><figcaption>Продукция на производстве</figcaption></figure>
-            <figure class="features-media-detail"><img src="{{ url_for('static', filename='images/works/work-2.webp') }}?v=20261108-2" alt="Дорожка, вымощенная брусчаткой ёлочкой" width="846" height="1128" loading="lazy"><figcaption>Примеры применения</figcaption></figure>
+            <figure class="features-media-main"><img src="{{ url_for('static', filename='images/production-crane.webp') }}?v=20261113-2" alt="Погрузка бетонных изделий на производстве" width="1448" height="1086" loading="lazy"></figure>
+            <figure class="features-media-detail"><img src="{{ url_for('static', filename='images/works/work-2.webp') }}?v=20261108-2" alt="Дорожка, вымощенная брусчаткой ёлочкой" width="846" height="1128" loading="lazy"></figure>
             <span class="features-monogram" aria-hidden="true">ТМ</span>
         </div>
         <div class="features-content">
@@ -213,7 +213,6 @@
         {% for image in gallery %}
         <button class="gallery-item" type="button" data-gallery-index="{{ loop.index0 }}" data-full="{{ url_for('uploaded_file', filename=image.filename) }}" data-caption="{{ image.caption }}" aria-label="Увеличить фотографию{% if image.caption %}: {{ image.caption }}{% endif %}">
             <img src="{{ url_for('uploaded_file', filename=image.filename) }}" alt="{{ image.caption or 'Пример применения бетонных изделий' }}" loading="lazy" width="1200" height="900">
-            <span>{{ image.caption or 'Пример работы' }} <i aria-hidden="true">↗</i></span>
         </button>
         {% endfor %}
     </div>
@@ -227,7 +226,6 @@
         {% for file, caption, w, h in examples %}
         <button class="gallery-item" type="button" data-gallery-index="{{ loop.index0 }}" data-full="{{ url_for('static', filename='images/works/' + file) }}?v=20261111" data-caption="{{ caption }}" aria-label="Увеличить фотографию: {{ caption }}">
             <img src="{{ url_for('static', filename='images/works/' + file) }}?v=20261111" alt="{{ caption }}" loading="lazy" width="{{ w }}" height="{{ h }}">
-            <span>{{ caption }} <i aria-hidden="true">↗</i></span>
         </button>
         {% endfor %}
     </div>

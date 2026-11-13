@@ -13,7 +13,7 @@
 </section>
 </div>
 <div>
-{% for product in products %}<section class="panel"><h2>{{ product.name }}</h2><p class="panel-intro">{{ product.dimensions }} · {{ product.consumption }}</p><label class="form-field"><span>Описание товара</span><textarea name="{{ product.slug }}_description" maxlength="1500" required>{{ product.description }}</textarea></label><label class="form-field"><span>Цена, ₽ {{ product.price_unit }}</span><input type="number" name="{{ product.slug }}_price" min="0" max="100000000" step="0.01" value="{{ product.price if product.price is not none else '' }}"><small>Оставьте пустым, чтобы на сайте отображалось «Стоимость по запросу».</small></label></section>{% endfor %}
+{% for product in products %}<section class="panel"><h2>{{ product.name }}</h2><p class="panel-intro">{{ product.dimensions }} · {{ product.consumption }}</p><label class="form-field"><span>Описание товара</span><textarea name="{{ product.slug }}_description" maxlength="1500" required>{{ product.description }}</textarea></label><label class="form-field"><span>Цена {{ product.price_unit }}</span><input type="number" name="{{ product.slug }}_price" min="0" max="100000000" step="0.01" value="{{ product.price if product.price is not none else '' }}"><small>Оставьте пустым, чтобы на сайте отображалось «Стоимость по запросу».</small></label></section>{% endfor %}
 </div>
 </div>
 <div class="form-actions"><button class="button" type="submit">Сохранить все изменения</button><a class="button button-secondary" href="{{ url_for('index') }}" target="_blank" rel="noopener">Посмотреть сайт ↗</a></div>
