@@ -514,3 +514,25 @@ html,body{overflow-x:clip}
 }
 
 @media(max-width:800px){.site-nav{margin-left:0}}
+
+/* Ориентировочная стоимость в калькуляторе */
+.calc-row-price>span:first-child{color:#fff;font-weight:600}
+.calc-row-price strong{font-family:Unbounded,Manrope,sans-serif;font-size:clamp(20px,2vw,28px);font-weight:500;line-height:1;white-space:nowrap;color:var(--gold-light)}
+.calc-row-price strong>span{font-size:12px;font-weight:400}
+
+/* Секции компактнее: весь блок помещается в высоту экрана на десктопе */
+@media(min-width:801px){
+.section{padding-top:clamp(64px,7.5vh,120px);padding-bottom:clamp(64px,7.5vh,120px)}
+.section-heading{margin-bottom:clamp(38px,5vh,80px)}
+.calculators{padding-top:clamp(40px,5vh,84px);padding-bottom:clamp(40px,5vh,84px)}
+}
+@media(min-width:801px) and (max-height:900px){
+.section{padding-top:52px;padding-bottom:52px}
+.section-heading{margin-bottom:30px}
+.calc-card{padding:clamp(22px,3vh,32px)}
+.calc-result{padding:20px 26px 24px}
+.product-info{padding:clamp(20px,3vh,30px)}
+.delivery-media{height:min(620px,62vh)}
+.site-footer{padding-top:56px}
+.footer-grid{padding-bottom:32px;gap:36px}
+}

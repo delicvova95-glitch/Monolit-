@@ -82,8 +82,13 @@ def init_db():
         DEFAULT_SETTINGS.items(),
     )
     db.execute(
-        """INSERT OR IGNORE INTO products
-        (slug, name, dimensions, consumption, description, price, price_unit) VALUES (?, ?, ?, ?, ?, ?, ?)""",
+        """INSERT INTO products
+        (slug, name, dimensions, consumption, description, price, price_unit) VALUES (?, ?, ?, ?, ?, ?, ?)
+        ON CONFLICT(slug) DO UPDATE SET
+            name = excluded.name,
+            dimensions = excluded.dimensions,
+            consumption = excluded.consumption,
+            description = excluded.description""",
         (
             "paver", "Брусчатка", "100 × 200 × 60 мм",
             "50 шт./м²",
@@ -92,12 +97,17 @@ def init_db():
         ),
     )
     db.execute(
-        """INSERT OR IGNORE INTO products
-        (slug, name, dimensions, consumption, description, price, price_unit) VALUES (?, ?, ?, ?, ?, ?, ?)""",
+        """INSERT INTO products
+        (slug, name, dimensions, consumption, description, price, price_unit) VALUES (?, ?, ?, ?, ?, ?, ?)
+        ON CONFLICT(slug) DO UPDATE SET
+            name = excluded.name,
+            dimensions = excluded.dimensions,
+            consumption = excluded.consumption,
+            description = excluded.description""",
         (
-            "border", "Бордюр", "200 × 50 × 400 мм",
+            "border", "Бордюр", "1000 × 200 × 80 мм",
             "1 шт./пог. м",
-            "Бетонный элемент для оформления границ дорожек и зон мощения. Длина изделия — 400 мм.",
+            "Бетонный элемент для оформления границ дорожек и зон мощения. Длина изделия — 1000 мм.",
             350, "₽/шт",
         ),
     )
@@ -181,6 +191,7 @@ def index():
     gallery = db.execute("SELECT * FROM gallery ORDER BY sort_order, id DESC").fetchall()
     return render_template(
         "index.html", products=products, settings=public_settings(), gallery=gallery,
+        prices={p["slug"]: p["price"] or 0 for p in products},
     )
 
 

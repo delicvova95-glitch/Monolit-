@@ -51,7 +51,7 @@
         {% for product in products %}
         <article class="product-card product-{{ product.slug }}">
             <div class="product-visual">
-                <img class="product-photo" src="{{ url_for('static', filename='images/' + ('product-paver.webp' if product.slug == 'paver' else 'product-border.webp')) }}?v=20261113-1" alt="{% if product.slug == 'paver' %}Бетонная брусчатка 100 × 200 × 60 мм{% else %}Бетонный бордюр 200 × 50 × 400 мм{% endif %}" width="{% if product.slug == 'paver' %}1474{% else %}1596{% endif %}" height="{% if product.slug == 'paver' %}1067{% else %}985{% endif %}" loading="lazy">
+                <img class="product-photo" src="{{ url_for('static', filename='images/' + ('product-paver.webp' if product.slug == 'paver' else 'product-border.webp')) }}?v=20261113-1" alt="{% if product.slug == 'paver' %}Бетонная брусчатка 100 × 200 × 60 мм{% else %}Бетонный бордюр 1000 × 200 × 80 мм{% endif %}" width="{% if product.slug == 'paver' %}1474{% else %}1596{% endif %}" height="{% if product.slug == 'paver' %}1067{% else %}985{% endif %}" loading="lazy">
                 <span class="product-label">0{{ loop.index }} / КАТАЛОГ</span>
                 <div class="product-visual-title">
                     <span>{{ 'Для дорожек и площадок' if product.slug == 'paver' else 'Для границ мощения' }}</span>
@@ -95,7 +95,7 @@
     </form>
 </section>
 
-<section class="section section-stone calculators" id="calculator" aria-labelledby="calculator-title" data-calculators data-paver-rate="{{ settings.paver_rate }}" data-border-rate="{{ settings.border_rate }}">
+<section class="section section-stone calculators" id="calculator" aria-labelledby="calculator-title" data-calculators data-paver-rate="{{ settings.paver_rate }}" data-border-rate="{{ settings.border_rate }}" data-paver-price="{{ '%g'|format(prices.paver) }}" data-border-price="{{ '%g'|format(prices.border) }}">
     <div class="section-heading section-heading-inline">
         <div><span class="section-number">04 / РАСЧЁТ</span><h2 id="calculator-title">Рассчитайте<br>свой заказ</h2></div>
     </div>
@@ -118,6 +118,7 @@
             <div class="calc-result" aria-live="polite">
                 <span class="calc-result-label">Предварительный результат</span>
                 <div class="calc-row calc-row-total"><span data-total-label>Необходимое количество</span><strong><output data-total-result>0</output> <span>шт.</span></strong></div>
+                <div class="calc-row calc-row-price"><span>Ориентировочная стоимость</span><strong><output data-cost-result>0</output> <span>₽</span></strong></div>
             </div>
             <button class="button button-primary button-wide" type="button" data-use-calculation>Перенести в заявку <span aria-hidden="true">↗</span></button>
         </article>
@@ -125,7 +126,7 @@
             <header class="calc-head">
                 <div><span class="calc-index">К·02 / БОРДЮР</span><h3 id="calc-border-title">По длине границ</h3></div>
                 <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 23 23 5l4 4-18 18H5v-4Z"/><path d="m8 20 3 3m2-7 3 3m2-7 3 3"/></svg>
-                <p>200 × 50 × 400 мм · {{ ('%g'|format(settings.border_rate))|replace('.', ',') }} шт./пог. м</p>
+                <p>1000 × 200 × 80 мм · {{ ('%g'|format(settings.border_rate))|replace('.', ',') }} шт./пог. м</p>
             </header>
             <label class="field">
                 <span>Общая длина границ</span>
@@ -134,6 +135,7 @@
             <div class="calc-result" aria-live="polite">
                 <span class="calc-result-label">Предварительный результат</span>
                 <div class="calc-row calc-row-total"><span>Необходимое количество</span><strong><output data-total-result>0</output> <span>шт.</span></strong></div>
+                <div class="calc-row calc-row-price"><span>Ориентировочная стоимость</span><strong><output data-cost-result>0</output> <span>₽</span></strong></div>
             </div>
             <button class="button button-primary button-wide" type="button" data-use-calculation>Перенести в заявку <span aria-hidden="true">↗</span></button>
         </article>
@@ -156,10 +158,10 @@
         </figure>
         <div class="delivery-content">
             <div class="delivery-points">
-                <article><span>01</span><div><h3>Погрузка и разгрузка</h3><p>Привезём заказ на паллетах и разгрузим манипулятором на вашем участке.</p></div></article>
-                <article><span>02</span><div><h3>Стоимость доставки</h3><p>Рассчитаем по адресу и объёму заказа и сообщим до подтверждения.</p></div></article>
-                <article><span>03</span><div><h3>Условия подъезда</h3><p>Уточним ширину проезда, наличие места для разгрузки и работы стрелы.</p></div></article>
-                <article><span>04</span><div><h3>Согласуем время приезда</h3><p>Менеджер заранее согласует удобный день и время доставки.</p></div></article>
+                <article><span>01</span><div><h3>Погрузка и разгрузка</h3><p>На производстве загружаем плитку и поребрики на поддонах. На участке снимаем их манипулятором и ставим в согласованном месте.</p></div></article>
+                <article><span>02</span><div><h3>Стоимость доставки</h3><p>Прикиньте стоимость по тарифам ниже или свяжитесь с нами — рассчитаем доставку до вашего адреса.</p></div></article>
+                <article><span>03</span><div><h3>Условия подъезда</h3><p>Машине нужны свободный проезд и место для разгрузки. Если подъезд узкий или над ним проходят провода, сообщите заранее.</p></div></article>
+                <article><span>04</span><div><h3>Согласуем время приезда</h3><p>Подтвердим время доставки перед выездом. Если машина задержится, предупредим.</p></div></article>
             </div>
             <button class="button button-primary" type="button" data-delivery-order>Уточнить стоимость доставки <span aria-hidden="true">↗</span></button>
         </div>
@@ -234,7 +236,7 @@
     <div class="section-heading"><span class="section-number">08 / ВОПРОСЫ</span><h2 id="faq-title">Коротко<br>о важном</h2><p>Подробности заказа и доставки можно уточнить в заявке.</p></div>
     <div class="faq-list">
         <details><summary>Сколько брусчатки необходимо на 1 м²?<span></span></summary><p>Для брусчатки размером 100 × 200 мм требуется {{ settings.paver_rate|int }} штук на квадратный метр без учёта запаса.</p></details>
-        <details><summary>Сколько бордюров нужно на участок?<span></span></summary><p>Изделие длиной 400 мм — {{ ('%g'|format(settings.border_rate))|replace('.', ',') }} штука на погонный метр. Количество бордюров равно общей длине границ в метрах.</p></details>
+        <details><summary>Сколько бордюров нужно на участок?<span></span></summary><p>Изделие длиной 1000 мм — {{ ('%g'|format(settings.border_rate))|replace('.', ',') }} штука на погонный метр. Количество бордюров равно общей длине границ в метрах.</p></details>
         <details><summary>Как рассчитать количество материалов?<span></span></summary><p>Для брусчатки введите площадь в м² и при необходимости добавьте запас. Для бордюра укажите длину в погонных метрах; запас в этом калькуляторе не добавляется. Результат округляется вверх до целого изделия.</p></details>
         <details><summary>Можно ли заказать оба изделия?<span></span></summary><p>Да, укажите количество брусчатки и бордюров в одной заявке. Менеджер уточнит детали заказа.</p></details>
         <details><summary>Как узнать стоимость?<span></span></summary><p>Если цена не указана в каталоге, оставьте заявку с нужным количеством. Актуальную стоимость сообщит менеджер.</p></details>
@@ -262,8 +264,8 @@
             <label class="field"><span>Телефон *</span><input type="tel" name="phone" autocomplete="tel" maxlength="30" required placeholder="+7 ___ ___-__-__"><small data-error-for="phone"></small></label>
             <label class="field"><span>Брусчатка, м²</span><input type="number" name="paver_qty" min="0" max="1000000" step="0.1" value="0" inputmode="decimal"><small data-error-for="paver_qty"></small></label>
             <label class="field"><span>Бордюр, шт.</span><input type="number" name="border_qty" min="0" max="1000000" step="1" value="0" inputmode="numeric"><small data-error-for="border_qty"></small></label>
-            <label class="field field-full"><span>Адрес доставки</span><input type="text" name="address" autocomplete="street-address" maxlength="250" placeholder="Город, улица — можно уточнить позже"><small data-error-for="address"></small></label>
-            <label class="field field-full"><span>Комментарий</span><textarea name="comment" rows="3" maxlength="1500" placeholder="Особенности участка, пожелания по заказу"></textarea><small data-error-for="comment"></small></label>
+            <label class="field field-full"><span>Адрес доставки</span><input type="text" name="address" autocomplete="street-address" maxlength="250"><small data-error-for="address"></small></label>
+            <label class="field field-full"><span>Комментарий</span><textarea name="comment" rows="3" maxlength="1500"></textarea><small data-error-for="comment"></small></label>
         </div>
         <label class="honeypot" aria-hidden="true">Сайт<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
         <label class="consent"><input type="checkbox" name="consent" required><span>Я соглашаюсь на <a href="{{ url_for('policy') }}" target="_blank" rel="noopener">обработку персональных данных</a> и принимаю условия политики.</span></label>

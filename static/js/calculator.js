@@ -6,6 +6,10 @@ export function initCalculator() {
         paver: Number(section.dataset.paverRate) || 50,
         border: Number(section.dataset.borderRate) || 1,
     };
+    const prices = {
+        paver: Number(section.dataset.paverPrice) || 0,
+        border: Number(section.dataset.borderPrice) || 0,
+    };
     const formatter = new Intl.NumberFormat('ru-RU');
 
     function numericValue(input) {
@@ -25,6 +29,8 @@ export function initCalculator() {
         const baseResult = card.querySelector('[data-base-result]');
         const totalResult = card.querySelector('[data-total-result]');
         const totalLabel = card.querySelector('[data-total-label]');
+        const costResult = card.querySelector('[data-cost-result]');
+        const pricePerPiece = rate > 0 ? (prices[product] || 0) / rate : 0;
 
         function calculate() {
             const reserve = reserveInput ? Math.min(20, Math.max(0, numericValue(reserveInput))) : 0;
@@ -38,6 +44,7 @@ export function initCalculator() {
             if (reserveQty) reserveQty.textContent = formatter.format(total - base);
             if (baseResult) baseResult.value = formatter.format(base);
             totalResult.value = formatter.format(total);
+            if (costResult) costResult.value = formatter.format(Math.round(total * pricePerPiece));
             if (totalLabel) totalLabel.textContent = reserve > 0 ? 'С учётом запаса' : 'Необходимое количество';
             return { product, base, total };
         }
