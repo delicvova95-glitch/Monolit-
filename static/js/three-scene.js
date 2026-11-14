@@ -171,7 +171,7 @@ export function initThreeScene() {
             model.position.set(-center.x * model.scale.x, -bounds.min.y * model.scale.y, -center.z * model.scale.z);
             model.traverse(child => {
                 if (!child.isMesh) return;
-                child.material.color.set(0xffffff);
+                child.material.color.set(0x858585);
                 child.material.metalness = 0;
                 child.material.roughness = 1;
                 child.material.envMapIntensity = .38;
