@@ -536,3 +536,6 @@ html,body{overflow-x:clip}
 .site-footer{padding-top:56px}
 .footer-grid{padding-bottom:32px;gap:36px}
 }
+
+/* 3D-модель на мобильных не показываем */
+@media(max-width:800px){.hero-scene{display:none}}
