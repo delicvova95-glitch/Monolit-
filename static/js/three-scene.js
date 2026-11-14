@@ -45,7 +45,7 @@ export function initThreeScene() {
     renderer.setClearColor(0x000000, 0);
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.02;
+    renderer.toneMappingExposure = .94;
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     container.appendChild(renderer.domElement);
@@ -58,8 +58,8 @@ export function initThreeScene() {
     room.dispose();
     pmrem.dispose();
 
-    scene.add(new THREE.HemisphereLight(0xeeeade, 0x23282c, .55));
-    const keyLight = new THREE.DirectionalLight(0xfff3de, 2.1);
+    scene.add(new THREE.HemisphereLight(0xeeeade, 0x23282c, .45));
+    const keyLight = new THREE.DirectionalLight(0xfff3de, 1.7);
     keyLight.position.set(-3.2, 5.2, 4);
     keyLight.castShadow = true;
     keyLight.shadow.mapSize.set(1024, 1024);
@@ -71,10 +71,10 @@ export function initThreeScene() {
     keyLight.shadow.camera.bottom = -2.6;
     keyLight.shadow.bias = -.0004;
     scene.add(keyLight);
-    const edgeLight = new THREE.DirectionalLight(0xc2cfd6, .55);
+    const edgeLight = new THREE.DirectionalLight(0xc2cfd6, .4);
     edgeLight.position.set(4.2, 2.2, -4.2);
     scene.add(edgeLight);
-    const rimLight = new THREE.DirectionalLight(0xd9c6a2, .6);
+    const rimLight = new THREE.DirectionalLight(0xd9c6a2, .45);
     rimLight.position.set(1.2, 3.4, -5);
     scene.add(rimLight);
 
@@ -85,7 +85,7 @@ export function initThreeScene() {
 
     const shadowCatcher = new THREE.Mesh(
         new THREE.PlaneGeometry(6.5, 6.5),
-        new THREE.ShadowMaterial({ opacity: .32 }),
+        new THREE.ShadowMaterial({ opacity: .42 }),
     );
     shadowCatcher.rotation.x = -Math.PI / 2;
     shadowCatcher.position.y = -.02;
@@ -174,7 +174,7 @@ export function initThreeScene() {
                 child.material.color.set(0x858585);
                 child.material.metalness = 0;
                 child.material.roughness = 1;
-                child.material.envMapIntensity = .38;
+                child.material.envMapIntensity = .3;
                 child.castShadow = true;
             });
             root.add(model);
