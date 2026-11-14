@@ -539,3 +539,6 @@ html,body{overflow-x:clip}
 
 /* 3D-модель на мобильных не показываем */
 @media(max-width:800px){.hero-scene{display:none}}
+
+/* На мобильных убираем стрелочки в кнопках */
+@media(max-width:800px){.button [aria-hidden="true"],.text-link [aria-hidden="true"],.mobile-nav .mobile-nav-cta [aria-hidden="true"]{display:none}}
