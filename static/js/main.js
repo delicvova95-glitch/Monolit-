@@ -147,7 +147,7 @@ if (!reducedMotion.matches && 'IntersectionObserver' in window) {
 
 const canRender3D = window.matchMedia('(min-width: 801px)').matches && !reducedMotion.matches;
 if (canRender3D && document.querySelector('#scene')) {
-    import('./three-scene.js?v=20261109-premium-3')
+    import('./three-scene.js?v=20261114-3d-2')
         .then(module => module.initThreeScene())
         .catch(() => document.querySelector('[data-scene-loader]')?.remove());
 }
