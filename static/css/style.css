@@ -423,9 +423,10 @@ html,body{overflow-x:clip}
 
 /* Макет Figma: шапка и первый экран */
 @media(min-width:801px){.site-nav{position:absolute;left:50%;transform:translateX(-50%)}}
-.header-contacts{display:flex;flex-direction:column;align-items:flex-start;gap:2px;max-width:270px;margin-left:auto;font-size:10px;line-height:1.45;color:#c3cfda}
-.header-contacts a{overflow-wrap:anywhere;transition:color .2s}
+.header-contacts{display:flex;flex-direction:column;align-items:flex-start;gap:3px;max-width:300px;margin-left:auto;font-size:13.5px;line-height:1.45;color:#e9eef3}
+.header-contacts a{font-weight:600;overflow-wrap:anywhere;transition:color .2s}
 .header-contacts a:hover{color:var(--gold-light)}
+.header-contacts a[href^="tel:"]{font-family:Unbounded,Manrope,sans-serif;font-size:15.5px;font-weight:550;letter-spacing:.01em}
 .header-social{display:flex;gap:8px;margin-left:14px}
 .header-social a{display:flex;align-items:center;justify-content:center;width:38px;height:38px;border:1px solid rgba(255,255,255,.22);border-radius:11px;color:#e9eef3;transition:color .2s,border-color .2s,transform .2s}
 .header-social a:hover{color:var(--gold-light);border-color:rgba(199,165,102,.6);transform:translateY(-1px)}
