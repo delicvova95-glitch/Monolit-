@@ -70,10 +70,12 @@ document.querySelectorAll('[data-order-product]').forEach(button => {
 const contactWidget = document.querySelector('[data-contact-widget]');
 if (contactWidget) {
     const heroBlock = document.querySelector('[data-hero]');
-    if (heroBlock && 'IntersectionObserver' in window) {
-        new IntersectionObserver(([entry]) => {
-            contactWidget.classList.toggle('is-visible', !entry.isIntersecting);
-        }, { threshold: 0 }).observe(heroBlock);
+    if (heroBlock) {
+        const toggleVisibility = () => {
+            contactWidget.classList.toggle('is-visible', window.scrollY > 40);
+        };
+        toggleVisibility();
+        window.addEventListener('scroll', toggleVisibility, { passive: true });
     } else {
         contactWidget.classList.add('is-visible');
     }
