@@ -72,10 +72,12 @@ if (contactWidget) {
     const heroBlock = document.querySelector('[data-hero]');
     if (heroBlock) {
         const toggleVisibility = () => {
-            contactWidget.classList.toggle('is-visible', window.scrollY > 40);
+            const threshold = Math.max(0, heroBlock.offsetHeight - window.innerHeight);
+            contactWidget.classList.toggle('is-visible', window.scrollY > threshold);
         };
         toggleVisibility();
         window.addEventListener('scroll', toggleVisibility, { passive: true });
+        window.addEventListener('resize', toggleVisibility);
     } else {
         contactWidget.classList.add('is-visible');
     }
