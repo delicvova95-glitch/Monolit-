@@ -103,7 +103,7 @@ export function initThreeScene() {
             lastTime = time;
             return;
         }
-        const damping = 1 - Math.exp(-(time - lastTime) * .014);
+        const damping = 1 - Math.exp(-(time - lastTime) * .010);
         lastTime = time;
         currentProgress += (targetProgress - currentProgress) * damping;
 
@@ -113,7 +113,7 @@ export function initThreeScene() {
         const settle = THREE.MathUtils.smoothstep(currentProgress, .7, 1);
 
         root.rotation.x = THREE.MathUtils.lerp(.1, .48, turn) + settle * .02;
-        root.rotation.y = THREE.MathUtils.lerp(-.5, -.5 - Math.PI * .55, turn);
+        root.rotation.y = THREE.MathUtils.lerp(-.5, -.5 - Math.PI * .72, turn);
         root.rotation.z = THREE.MathUtils.lerp(-.05, 0, turn);
         // Тень опускается вместе с поворотом плитки и не заходит на её грани
         shadowCatcher.position.y = THREE.MathUtils.lerp(-.06, -.5, turn);
