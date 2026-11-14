@@ -280,7 +280,7 @@
         <div class="contact-item"><span>Электронная почта</span>{% if settings.contact_email %}<a href="mailto:{{ settings.contact_email }}">{{ settings.contact_email }}</a>{% else %}<p class="contact-empty">Будет добавлена перед запуском</p>{% endif %}</div>
         <div class="contact-item"><span>Адрес</span><p>{{ settings.contact_address or 'Адрес необходимо добавить в настройках' }}</p></div>
         <div class="contact-item"><span>График работы</span><p>{{ settings.work_hours or 'График необходимо добавить в настройках' }}</p></div>
-        <div class="contact-item"><span>Мессенджеры</span><p class="contact-messengers"><a href="https://t.me/tomskmonolit" target="_blank" rel="noopener">Telegram</a><span class="contact-messengers-sep">·</span><a href="https://max.ru/u/f9LHodD0cOL4lPvB8LEHQF4mTNcMtRjexMqcNEkosj570g5cV9xJ6Evmuss" target="_blank" rel="noopener">MAX</a></p></div>
+        <div class="contact-item"><span>Мессенджеры</span><p class="contact-messengers"><a href="https://t.me/tomskmonolit" target="_blank" rel="noopener">Telegram</a><span class="contact-messengers-sep">·</span><a href="https://max.ru/u/f9LHodD0cOL4lPvB8LEHQF4mTNcMtRjexMqcNEkosj570g5cV9xJ6Evmuss" target="_blank" rel="noopener">MAX</a></p><small class="contact-messengers-hint">Нажмите для перехода</small></div>
         <div class="contact-item"><span>Реквизиты компании</span><p class="pre-line">{{ settings.company_details or 'Юридические сведения необходимо заполнить перед запуском' }}</p></div>
     </div>
 </section>

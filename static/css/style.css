@@ -253,6 +253,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
 .contact-item:hover{border-color:rgba(199,165,102,.55);transform:translateY(-3px)}
 .contact-item>span{display:block;margin-bottom:24px;font-size:10px;font-weight:700;color:#9a783d;text-transform:uppercase;letter-spacing:.12em}
 .contact-item a,.contact-item p{margin:0;font-size:16px;line-height:1.55;overflow-wrap:anywhere;color:var(--navy)}
+.contact-messengers-hint{display:block;margin-top:6px;font-size:11px;color:var(--muted)}
 .contact-item a:hover{color:#9a783d}
 .contact-item .contact-empty{color:var(--muted);font-size:13px}
 .pre-line{white-space:pre-line}
