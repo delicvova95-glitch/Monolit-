@@ -422,7 +422,7 @@ html,body{overflow-x:clip}
 }
 
 /* Макет Figma: шапка и первый экран */
-.site-nav{margin-left:auto}
+@media(min-width:801px){.site-nav{position:absolute;left:50%;transform:translateX(-50%)}}
 .header-contacts{display:flex;flex-direction:column;align-items:flex-start;gap:2px;max-width:270px;margin-left:auto;font-size:10px;line-height:1.45;color:#c3cfda}
 .header-contacts a{overflow-wrap:anywhere;transition:color .2s}
 .header-contacts a:hover{color:var(--gold-light)}
@@ -433,7 +433,7 @@ html,body{overflow-x:clip}
 .header-social img{width:24px;height:24px;border-radius:7px}
 @media(max-width:1150px){.header-social{display:none}}
 .hero-tagline span{display:block}
-@media(max-width:1500px){.header-contacts{display:none}}
+@media(max-width:1500px){.header-contacts{display:none}.header-social{margin-left:auto}}
 @media(max-width:800px){.hero-tagline{max-width:430px}}
 
 /* Макет Figma: каталог */
