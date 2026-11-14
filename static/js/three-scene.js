@@ -115,6 +115,8 @@ export function initThreeScene() {
         root.rotation.x = THREE.MathUtils.lerp(.1, .48, turn) + settle * .02;
         root.rotation.y = THREE.MathUtils.lerp(-.5, -.5 - Math.PI, turn);
         root.rotation.z = THREE.MathUtils.lerp(-.05, 0, turn);
+        // Тень опускается вместе с поворотом плитки и не заходит на её грани
+        shadowCatcher.position.y = THREE.MathUtils.lerp(-.06, -.5, turn);
         // При появлении текста плитка уступает место слева
         root.position.x = THREE.MathUtils.lerp(0, .62, THREE.MathUtils.smoothstep(currentProgress, .55, .9));
         root.position.y = THREE.MathUtils.lerp(0, .12, turn);
