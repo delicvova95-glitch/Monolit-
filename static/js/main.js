@@ -69,6 +69,15 @@ document.querySelectorAll('[data-order-product]').forEach(button => {
 
 const contactWidget = document.querySelector('[data-contact-widget]');
 if (contactWidget) {
+    const heroBlock = document.querySelector('[data-hero]');
+    if (heroBlock && 'IntersectionObserver' in window) {
+        new IntersectionObserver(([entry]) => {
+            contactWidget.classList.toggle('is-visible', !entry.isIntersecting);
+        }, { threshold: 0 }).observe(heroBlock);
+    } else {
+        contactWidget.classList.add('is-visible');
+    }
+
     const toggle = contactWidget.querySelector('[data-contact-widget-toggle]');
     const popup = contactWidget.querySelector('[data-contact-widget-popup]');
     let returnFocus = toggle;

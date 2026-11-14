@@ -267,7 +267,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
 .footer-bottom a:hover{color:#fff}
 .mobile-nav{display:none}
 
-.contact-widget{position:fixed;right:24px;bottom:24px;z-index:60;transition:opacity .25s}
+.contact-widget{position:fixed;right:24px;bottom:24px;z-index:60;opacity:0;transform:translateY(16px);pointer-events:none;transition:opacity .35s var(--ease),transform .35s var(--ease)}
+.contact-widget.is-visible{opacity:1;transform:none;pointer-events:auto}
 body.menu-open .contact-widget{opacity:0;pointer-events:none}
 .contact-widget-button{display:inline-flex;align-items:center;gap:12px;min-height:64px;padding:17px 28px;border:1px solid rgba(226,197,141,.45);border-radius:999px;background:rgba(11,31,51,.97);color:#fff;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 16px 40px rgba(5,18,31,.28);backdrop-filter:blur(8px);transition:background .25s,border-color .25s,transform .25s}
 .contact-widget-button:hover{background:var(--navy-3);border-color:var(--gold);transform:translateY(-2px)}
