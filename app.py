@@ -6,8 +6,11 @@ import re
 import secrets
 import smtplib
 import sqlite3
+import threading
+import time
 import urllib.request
 import uuid
+from collections import defaultdict, deque
 from email.message import EmailMessage
 from pathlib import Path
 
@@ -348,11 +351,45 @@ def admin_required(view):
     return wrapped
 
 
+LOGIN_ATTEMPT_LIMIT = 5
+LOGIN_ATTEMPT_WINDOW = 600
+_login_attempts = defaultdict(deque)
+_login_attempts_lock = threading.Lock()
+
+
+def _client_ip():
+    return request.headers.get("X-Forwarded-For", request.remote_addr or "").split(",")[0].strip() or "unknown"
+
+
+def _login_limited(ip):
+    now = time.monotonic()
+    with _login_attempts_lock:
+        attempts = _login_attempts[ip]
+        while attempts and now - attempts[0] > LOGIN_ATTEMPT_WINDOW:
+            attempts.popleft()
+        return len(attempts) >= LOGIN_ATTEMPT_LIMIT
+
+
+def _register_login_attempt(ip):
+    with _login_attempts_lock:
+        _login_attempts[ip].append(time.monotonic())
+
+
+def _reset_login_attempts(ip):
+    with _login_attempts_lock:
+        _login_attempts.pop(ip, None)
+
+
 @app.route("/admin/login", methods=("GET", "POST"))
 def admin_login():
     if session.get("admin_authenticated"):
         return redirect(url_for("admin_dashboard"))
     if request.method == "POST":
+        ip = _client_ip()
+        if _login_limited(ip):
+            app.logger.warning("Превышен лимит попыток входа в админку с IP %s", ip)
+            flash("Слишком много попыток входа. Повторите через 10 минут.", "error")
+            return render_template("admin/login.html"), 429
         configured = bool(app.config["ADMIN_PASSWORD_HASH"])
         valid_user = hmac.compare_digest(
             request.form.get("username", ""), app.config["ADMIN_USERNAME"],
@@ -361,10 +398,12 @@ def admin_login():
             app.config["ADMIN_PASSWORD_HASH"], request.form.get("password", ""),
         )
         if configured and valid_user and valid_password:
+            _reset_login_attempts(ip)
             session.clear()
             session["admin_authenticated"] = True
             session.permanent = True
             return redirect(url_for("admin_dashboard"))
+        _register_login_attempt(ip)
         flash("Неверный логин или пароль, либо доступ администратора ещё не настроен.", "error")
     return render_template("admin/login.html")
 
