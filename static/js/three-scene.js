@@ -124,7 +124,7 @@ export function initThreeScene() {
             lastTime = time;
             return;
         }
-        const damping = 1 - Math.exp(-(time - lastTime) * .0085);
+        const damping = 1 - Math.exp(-(time - lastTime) * .014);
         lastTime = time;
         currentProgress += (targetProgress - currentProgress) * damping;
 
