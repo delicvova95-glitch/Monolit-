@@ -2,27 +2,6 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 
-function createShadow() {
-    const canvas = document.createElement('canvas');
-    canvas.width = 256;
-    canvas.height = 256;
-    const context = canvas.getContext('2d');
-    const gradient = context.createRadialGradient(128, 128, 10, 128, 128, 120);
-    gradient.addColorStop(0, 'rgba(0,0,0,.62)');
-    gradient.addColorStop(.55, 'rgba(0,0,0,.26)');
-    gradient.addColorStop(1, 'rgba(0,0,0,0)');
-    context.fillStyle = gradient;
-    context.fillRect(0, 0, 256, 256);
-    const texture = new THREE.CanvasTexture(canvas);
-    const mesh = new THREE.Mesh(
-        new THREE.PlaneGeometry(5.6, 4.1),
-        new THREE.MeshBasicMaterial({ map: texture, transparent: true, depthWrite: false, opacity: .55 }),
-    );
-    mesh.rotation.x = -Math.PI / 2;
-    mesh.position.y = -.04;
-    return mesh;
-}
-
 export function initThreeScene() {
     const container = document.querySelector('#scene');
     const hero = document.querySelector('[data-hero]');
@@ -81,14 +60,14 @@ export function initThreeScene() {
     const root = new THREE.Group();
     root.rotation.set(.1, -.5, -.05);
     root.scale.setScalar(1.3);
-    scene.add(root, createShadow());
+    scene.add(root);
 
     const shadowCatcher = new THREE.Mesh(
         new THREE.PlaneGeometry(6.5, 6.5),
-        new THREE.ShadowMaterial({ opacity: .42 }),
+        new THREE.ShadowMaterial({ opacity: .36 }),
     );
     shadowCatcher.rotation.x = -Math.PI / 2;
-    shadowCatcher.position.y = -.02;
+    shadowCatcher.position.y = -.06;
     shadowCatcher.receiveShadow = true;
     scene.add(shadowCatcher);
 
