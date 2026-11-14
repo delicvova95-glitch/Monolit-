@@ -259,7 +259,7 @@ def notification_text(order):
         f"Новая заявка №{order['id']} — Томск Монолит",
         f"Имя: {order['name']}",
         f"Телефон: {order['phone']}",
-        f"Брусчатка: {order['paver_qty']} шт.",
+        f"Брусчатка: {order['paver_qty']} шт. (~{order['paver_qty'] / 50:g} м²)",
         f"Бордюры: {order['border_qty']} шт.",
         f"Населённый пункт: {order['city'] or 'не указан'}",
         f"Адрес доставки: {order['address'] or 'не указан'}",

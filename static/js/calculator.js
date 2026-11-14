@@ -49,7 +49,12 @@ export function initCalculator() {
             const result = calculate();
             const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
             const target = document.querySelector(`#order [name="${result.product}_qty"]`);
-            if (target) target.value = result.total;
+            // Поле в форме заказа для брусчатки теперь в м², поэтому пересчитываем
+            if (target) {
+                target.value = product === 'paver'
+                    ? Math.round((result.total / rate) * 100) / 100
+                    : result.total;
+            }
             document.querySelector('#order')?.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth' });
             window.setTimeout(() => document.querySelector('#order [name="name"]')?.focus({ preventScroll: true }), reducedMotion ? 0 : 650);
         });
