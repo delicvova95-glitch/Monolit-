@@ -542,3 +542,30 @@ html,body{overflow-x:clip}
 
 /* На мобильных убираем стрелочки в кнопках */
 @media(max-width:800px){.button [aria-hidden="true"],.text-link [aria-hidden="true"],.mobile-nav .mobile-nav-cta [aria-hidden="true"]{display:none}}
+
+/* Мобильная версия: упрощение и компактность */
+@media(max-width:800px){
+.hero-sticky{padding-top:96px;padding-bottom:40px}
+.hero-reveal{margin-top:20px;padding-top:20px}
+.section{padding-top:52px;padding-bottom:52px}
+.section-heading{margin-bottom:30px}
+.section-number{margin-bottom:14px}
+.order-early{display:none} /* дублирующая форма заявки на мобильных не нужна: есть нижняя кнопка «Заявка» и основная форма */
+.product-grid{gap:18px}
+.product-info{padding:19px}
+.product-specs{margin:18px 0}
+.calc-head{margin-bottom:20px}
+.delivery-media{height:380px}
+.features-media{min-height:350px}
+.features-media-main{height:310px}
+.features-media-detail{height:200px}
+.features-monogram{display:none}
+.features-layout{gap:30px}
+.feature-card{padding:18px}
+.faq{gap:26px}
+.gallery-item img,.gallery-illustrative .gallery-item:nth-child(n+3) img{height:210px;min-height:210px}
+.order-section{gap:26px}
+.contact-item{padding:18px}
+.site-footer{padding-top:48px}
+.footer-grid{gap:24px;padding-bottom:28px}
+}
