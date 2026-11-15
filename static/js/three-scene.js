@@ -24,7 +24,7 @@ export function initThreeScene() {
     renderer.setClearColor(0x000000, 0);
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = .94;
+    renderer.toneMappingExposure = 1.05;
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     container.appendChild(renderer.domElement);
@@ -37,8 +37,8 @@ export function initThreeScene() {
     room.dispose();
     pmrem.dispose();
 
-    scene.add(new THREE.HemisphereLight(0xeeeade, 0x23282c, .55));
-    const keyLight = new THREE.DirectionalLight(0xfff3de, 1.7);
+    scene.add(new THREE.HemisphereLight(0xeeeade, 0x3a3f42, .85));
+    const keyLight = new THREE.DirectionalLight(0xfff3de, .55);
     keyLight.position.set(-3.2, 5.2, 4);
     keyLight.castShadow = true;
     keyLight.shadow.mapSize.set(1024, 1024);
@@ -51,10 +51,10 @@ export function initThreeScene() {
     keyLight.shadow.bias = -.0004;
     keyLight.shadow.radius = 6;
     scene.add(keyLight);
-    const edgeLight = new THREE.DirectionalLight(0xc2cfd6, .4);
+    const edgeLight = new THREE.DirectionalLight(0xc2cfd6, .25);
     edgeLight.position.set(4.2, 2.2, -4.2);
     scene.add(edgeLight);
-    const rimLight = new THREE.DirectionalLight(0xd9c6a2, .45);
+    const rimLight = new THREE.DirectionalLight(0xd9c6a2, .3);
     rimLight.position.set(1.2, 3.4, -5);
     scene.add(rimLight);
 
@@ -158,12 +158,15 @@ export function initThreeScene() {
                 child.material.map = null;
                 child.material.vertexColors = false;
                 child.material.metalness = 0;
+                child.material.metalnessMap = null;
+                // Убираем карту шероховатости: иначе гладкая грань зеркалит белое окружение и выглядит белой
+                child.material.roughnessMap = null;
+                child.material.roughness = .95;
                 child.material.roughness = .97;
                 child.material.envMapIntensity = .22;
                 // Мягкая фактура: приглушаем рельеф, чтобы поверхность выглядела спокойнее
                 if (child.material.normalMap) child.material.normalScale.set(.25, .25);
                 if (child.material.bumpMap) child.material.bumpScale *= .25;
-                if (child.material.roughnessMap) child.material.roughness = 1;
                 child.material.needsUpdate = true;
                 child.castShadow = true;
             });
