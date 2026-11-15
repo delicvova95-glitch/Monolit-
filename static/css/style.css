@@ -557,6 +557,25 @@ html,body{overflow-x:clip}
 /* На мобильных убираем полоски меню справа сверху — навигация через нижнюю панель */
 @media(max-width:800px){.menu-toggle{display:none}}
 
+/* Мобильная шапка: телефон + мессенджеры рядом с логотипом */
+@media(max-width:800px){
+.site-header{gap:10px}
+.brand-logo{height:36px}
+.header-contacts{display:flex;flex-direction:row;align-items:center;gap:10px;margin-left:auto;max-width:none;font-size:0}
+.header-contacts a[href^="mailto:"]{display:none}
+.header-contacts a[href^="tel:"]{font-size:13.5px;letter-spacing:0}
+.header-social{display:flex;margin-left:0;gap:7px}
+.header-social a{width:32px;height:32px;border-radius:9px}
+.header-social svg{width:17px;height:17px}
+.header-social img{width:20px;height:20px}
+}
+@media(max-width:480px){
+.brand-logo{height:30px}
+.header-contacts{gap:7px}
+.header-contacts a[href^="tel:"]{font-size:12px}
+.header-social a{width:29px;height:29px}
+}
+
 /* Мобильная версия: упрощение и компактность */
 @media(max-width:800px){
 .hero-sticky{padding-top:96px;padding-bottom:40px}
