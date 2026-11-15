@@ -48,8 +48,9 @@ export function initOrderForm() {
 
             const data = Object.fromEntries(new FormData(form).entries());
             data.consent = form.elements.consent.checked;
-            // В форме брусчатка указывается в м², в заявке и на складе — в штуках (50 шт./м²)
+            // В форме брусчатка указывается в м², бордюр — в пог. м; в заявке и на складе — в штуках (50 шт./м² и 1 шт./пог. м)
             data.paver_qty = Math.ceil((Number(data.paver_qty) || 0) * 50);
+            data.border_qty = Math.ceil(Number(data.border_qty) || 0);
             submit.disabled = true;
             submitLabel.textContent = 'Отправляем…';
 

@@ -11,13 +11,14 @@ export function initCalculator() {
         border: Number(section.dataset.borderPrice) || 0,
     };
     const formatter = new Intl.NumberFormat('ru-RU');
+    const results = {};
 
     function numericValue(input) {
         const value = Number(String(input.value).replace(',', '.'));
         return Number.isFinite(value) && value > 0 ? Math.min(value, 1_000_000) : 0;
     }
 
-    section.querySelectorAll('[data-calc]').forEach(card => {
+    const cards = [...section.querySelectorAll('[data-calc]')].map(card => {
         const product = card.dataset.calc;
         const rate = rates[product] || 0;
         const valueInput = card.querySelector('[data-calc-value]');
@@ -46,26 +47,29 @@ export function initCalculator() {
             totalResult.value = formatter.format(total);
             if (costResult) costResult.value = formatter.format(Math.round(total * pricePerPiece));
             if (totalLabel) totalLabel.textContent = reserve > 0 ? 'С учётом запаса' : 'Необходимое количество';
-            return { product, base, total };
+            results[product] = { product, total, rate };
+            return results[product];
         }
 
         valueInput.addEventListener('input', calculate);
         reserveInput?.addEventListener('input', calculate);
+        calculate();
+        return calculate;
+    });
 
-        card.querySelector('[data-use-calculation]')?.addEventListener('click', () => {
-            const result = calculate();
+    // Одна общая кнопка: переносит результаты обоих калькуляторов в форму заявки
+    section.querySelectorAll('[data-use-calculation]').forEach(button => {
+        button.addEventListener('click', () => {
+            cards.forEach(calculate => {
+                const result = calculate();
+                const target = document.querySelector(`#order [name="${result.product}_qty"]`);
+                if (!target) return;
+                // Поля формы заказа принимают м² (брусчатка) и пог. м (бордюр), пересчитываем из штук
+                target.value = result.rate > 0 ? Math.round((result.total / result.rate) * 100) / 100 : 0;
+            });
             const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            const target = document.querySelector(`#order [name="${result.product}_qty"]`);
-            // Поле в форме заказа для брусчатки теперь в м², поэтому пересчитываем
-            if (target) {
-                target.value = product === 'paver'
-                    ? Math.round((result.total / rate) * 100) / 100
-                    : result.total;
-            }
             document.querySelector('#order')?.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth' });
             window.setTimeout(() => document.querySelector('#order [name="name"]')?.focus({ preventScroll: true }), reducedMotion ? 0 : 650);
         });
-
-        calculate();
     });
 }

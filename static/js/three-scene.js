@@ -103,12 +103,12 @@ export function initThreeScene() {
             lastTime = time;
             return;
         }
-        const damping = 1 - Math.exp(-(time - lastTime) * .010);
+        const damping = 1 - Math.exp(-(time - lastTime) * .0065);
         lastTime = time;
         currentProgress += (targetProgress - currentProgress) * damping;
 
         // Поворот плитки: короткий разворот от ракурса 3/4 и плавная остановка горизонтально, лицом к зрителю
-        const turn = THREE.MathUtils.smoothstep(currentProgress, .04, .7);
+        const turn = THREE.MathUtils.smoothstep(currentProgress, .03, .8);
         // Лёгкий дрейф после остановки, чтобы кадр оставался живым
         const settle = THREE.MathUtils.smoothstep(currentProgress, .7, 1);
 
