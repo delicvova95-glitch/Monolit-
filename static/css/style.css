@@ -611,3 +611,24 @@ html,body{overflow-x:clip}
 .features-media-main{height:min(380px,56vh)}
 .gallery-grid{grid-auto-rows:min(220px,28vh)}
 }
+
+/* На ноутбуках заголовок первого экрана полного десктопного размера */
+@media(min-width:801px){.hero h1{font-size:clamp(38px,5vw,84px)}}
+
+/* Ещё компактнее фото на низких экранах: каждый раздел помещается в экран */
+@media(min-width:801px) and (max-height:820px){
+.product-visual{aspect-ratio:1.8}
+.delivery-media{height:min(400px,54vh)}
+.features-media{min-height:min(440px,58vh)}
+.features-media-main{height:min(400px,56vh)}
+.features-media-detail{height:min(180px,24vh)}
+.gallery-grid{grid-auto-rows:min(240px,28vh)}
+}
+@media(min-width:801px) and (max-height:680px){
+.product-visual{aspect-ratio:1.95}
+.delivery-media{height:min(340px,52vh)}
+.features-media{min-height:min(380px,56vh)}
+.features-media-main{height:min(340px,54vh)}
+.features-media-detail{height:min(160px,22vh)}
+.gallery-grid{grid-auto-rows:min(200px,26vh)}
+}
