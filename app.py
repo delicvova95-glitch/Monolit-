@@ -176,6 +176,9 @@ def security_headers(response):
         "connect-src 'self' blob:; object-src 'none'; base-uri 'self'; "
         "frame-ancestors 'none'; form-action 'self'"
     )
+    # HTML всегда свежий: версии статики в шаблонах не должны застревать в кэше браузера
+    if response.content_type.startswith("text/html"):
+        response.headers["Cache-Control"] = "no-cache"
     return response
 
 
