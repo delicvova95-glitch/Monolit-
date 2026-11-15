@@ -579,8 +579,6 @@ html,body{overflow-x:clip}
 
 /* Адаптация по высоте окна браузера */
 @media(min-width:801px) and (max-height:820px){
-.hero-sticky{min-height:0}
-.hero h1{font-size:clamp(38px,7vh,74px)}
 .hero-tagline{margin:16px 0 20px}
 .section{padding-top:44px;padding-bottom:44px}
 .section-heading{margin-bottom:26px}
@@ -593,7 +591,23 @@ html,body{overflow-x:clip}
 .site-footer{padding-top:44px}
 }
 @media(min-width:801px) and (max-height:680px){
-.hero h1{font-size:clamp(32px,7.5vh,60px)}
 .section{padding-top:36px;padding-bottom:36px}
 .delivery-media{height:min(440px,56vh)}
+}
+
+/* Низкие экраны ноутбуков: заголовок первого экрана не сжимаем, ужимаем фото и отступы — раздел помещается в экран */
+@media(min-width:801px) and (max-height:820px){
+.product-visual{aspect-ratio:1.55}
+.delivery-media{height:min(440px,56vh)}
+.features-media{min-height:min(500px,60vh)}
+.features-media-main{height:min(440px,58vh)}
+.features-media-detail{height:min(200px,26vh)}
+.gallery-grid{grid-auto-rows:min(260px,30vh)}
+}
+@media(min-width:801px) and (max-height:680px){
+.product-visual{aspect-ratio:1.7}
+.delivery-media{height:min(380px,54vh)}
+.features-media{min-height:min(420px,58vh)}
+.features-media-main{height:min(380px,56vh)}
+.gallery-grid{grid-auto-rows:min(220px,28vh)}
 }
