@@ -117,7 +117,6 @@
             </label>
             <div class="calc-result" aria-live="polite">
                 <span class="calc-result-label">Предварительный результат</span>
-                <div class="calc-row calc-row-total"><span data-total-label>Необходимое количество</span><strong><output data-total-result>0</output> <span>шт.</span></strong></div>
                 <div class="calc-row calc-row-price"><span>Ориентировочная стоимость</span><strong><output data-cost-result>0</output> <span>₽</span></strong></div>
             </div>
         </article>
@@ -138,7 +137,6 @@
             </label>
             <div class="calc-result" aria-live="polite">
                 <span class="calc-result-label">Предварительный результат</span>
-                <div class="calc-row calc-row-total"><span>Необходимое количество</span><strong><output data-total-result>0</output> <span>шт.</span></strong></div>
                 <div class="calc-row calc-row-price"><span>Ориентировочная стоимость</span><strong><output data-cost-result>0</output> <span>₽</span></strong></div>
             </div>
         </article>
@@ -336,5 +334,5 @@
 {% endblock %}
 
 {% block scripts %}
-<script type="module" src="{{ url_for('static', filename='js/main.js') }}?v=20261115-calc-1"></script>
+<script type="module" src="{{ url_for('static', filename='js/main.js') }}?v=20261115-calc-3"></script>
 {% endblock %}

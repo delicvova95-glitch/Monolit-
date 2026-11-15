@@ -1,4 +1,4 @@
-import { initCalculator } from './calculator.js?v=20261115-calc-1';
+import { initCalculator } from './calculator.js?v=20261115-calc-3';
 import { initOrderForm } from './form.js?v=20261115-calc-1';
 import { initGallery } from './gallery.js';
 

@@ -349,7 +349,7 @@ def create_order():
     db.commit()
     return jsonify({
         "ok": True, "order_id": order["id"],
-        "message": f"Заявка №{order['id']} сохранена. Мы свяжемся с вами для уточнения деталей.",
+        "message": "Заявка сохранена. Мы свяжемся с вами для уточнения деталей.",
     }), 201
 
 

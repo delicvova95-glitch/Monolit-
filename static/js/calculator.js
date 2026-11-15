@@ -28,8 +28,6 @@ export function initCalculator() {
         const reservePct = card.querySelector('[data-reserve-pct]');
         const reserveQty = card.querySelector('[data-reserve-qty]');
         const baseResult = card.querySelector('[data-base-result]');
-        const totalResult = card.querySelector('[data-total-result]');
-        const totalLabel = card.querySelector('[data-total-label]');
         const costResult = card.querySelector('[data-cost-result]');
         const pricePerPiece = rate > 0 ? (prices[product] || 0) / rate : 0;
 
@@ -44,9 +42,7 @@ export function initCalculator() {
             if (reservePct) reservePct.textContent = reserve;
             if (reserveQty) reserveQty.textContent = formatter.format(total - base);
             if (baseResult) baseResult.value = formatter.format(base);
-            totalResult.value = formatter.format(total);
             if (costResult) costResult.value = formatter.format(Math.round(total * pricePerPiece));
-            if (totalLabel) totalLabel.textContent = reserve > 0 ? 'С учётом запаса' : 'Необходимое количество';
             results[product] = { product, total, rate };
             return results[product];
         }
