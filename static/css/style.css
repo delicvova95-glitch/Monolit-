@@ -632,3 +632,12 @@ html,body{overflow-x:clip}
 .features-media-detail{height:min(160px,22vh)}
 .gallery-grid{grid-auto-rows:min(200px,26vh)}
 }
+
+/* На ноутбуках (1101-1500px) в шапке показываем телефон и почту как на десктопе */
+@media(min-width:1101px) and (max-width:1500px){.header-contacts{display:flex}}
+
+/* Раскладка шапки на ноутбуках: меню не пересекается с контактами */
+@media(min-width:1101px) and (max-width:1500px){
+.header-social{display:none}
+.site-nav{left:45%}
+}
