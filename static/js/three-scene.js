@@ -154,7 +154,7 @@ export function initThreeScene() {
             model.position.set(-center.x * model.scale.x, -bounds.min.y * model.scale.y, -center.z * model.scale.z);
             model.traverse(child => {
                 if (!child.isMesh) return;
-                child.material.color.set(0x63635f);
+                child.material.color.set(0x4f4f4b);
                 // Однородный цвет: убираем цветную текстуру и вершинные цвета, чтобы не было пятен и квадратов
                 child.material.map = null;
                 child.material.vertexColors = false;
