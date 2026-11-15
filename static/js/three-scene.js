@@ -37,7 +37,7 @@ export function initThreeScene() {
     room.dispose();
     pmrem.dispose();
 
-    scene.add(new THREE.HemisphereLight(0xeeeade, 0x23282c, .45));
+    scene.add(new THREE.HemisphereLight(0xeeeade, 0x23282c, .55));
     const keyLight = new THREE.DirectionalLight(0xfff3de, 1.7);
     keyLight.position.set(-3.2, 5.2, 4);
     keyLight.castShadow = true;
@@ -49,6 +49,7 @@ export function initThreeScene() {
     keyLight.shadow.camera.top = 2.6;
     keyLight.shadow.camera.bottom = -2.6;
     keyLight.shadow.bias = -.0004;
+    keyLight.shadow.radius = 6;
     scene.add(keyLight);
     const edgeLight = new THREE.DirectionalLight(0xc2cfd6, .4);
     edgeLight.position.set(4.2, 2.2, -4.2);
@@ -64,7 +65,7 @@ export function initThreeScene() {
 
     const shadowCatcher = new THREE.Mesh(
         new THREE.PlaneGeometry(6.5, 6.5),
-        new THREE.ShadowMaterial({ opacity: .36 }),
+        new THREE.ShadowMaterial({ opacity: .3 }),
     );
     shadowCatcher.rotation.x = -Math.PI / 2;
     shadowCatcher.position.y = -.06;
@@ -154,8 +155,12 @@ export function initThreeScene() {
                 if (!child.isMesh) return;
                 child.material.color.set(0x858585);
                 child.material.metalness = 0;
-                child.material.roughness = 1;
-                child.material.envMapIntensity = .3;
+                child.material.roughness = .96;
+                child.material.envMapIntensity = .25;
+                // Мягкая фактура: приглушаем рельеф, чтобы поверхность выглядела спокойнее
+                if (child.material.normalMap) child.material.normalScale.set(.45, .45);
+                if (child.material.bumpMap) child.material.bumpScale *= .4;
+                if (child.material.roughnessMap) child.material.roughness = 1;
                 child.castShadow = true;
             });
             root.add(model);

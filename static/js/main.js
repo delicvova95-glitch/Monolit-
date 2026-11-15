@@ -70,8 +70,9 @@ document.querySelectorAll('[data-order-product]').forEach(button => {
 const contactWidget = document.querySelector('[data-contact-widget]');
 if (contactWidget) {
     const heroBlock = document.querySelector('[data-hero]');
+    let toggleVisibility = null;
     if (heroBlock) {
-        const toggleVisibility = () => {
+        toggleVisibility = () => {
             const threshold = Math.max(0, heroBlock.offsetHeight - window.innerHeight);
             contactWidget.classList.toggle('is-visible', window.scrollY > threshold);
         };
@@ -92,6 +93,7 @@ if (contactWidget) {
             popup.showModal();
             toggle.setAttribute('aria-expanded', 'true');
             contactWidget.classList.add('is-open');
+            contactWidget.classList.add('is-visible');
             window.setTimeout(() => popup.querySelector('[name="name"]')?.focus(), 0);
         } else if (!open && popup.open) {
             popup.close();
@@ -103,6 +105,7 @@ if (contactWidget) {
     popup.addEventListener('close', () => {
         toggle.setAttribute('aria-expanded', 'false');
         contactWidget.classList.remove('is-open');
+        toggleVisibility?.();
         returnFocus?.focus({ preventScroll: true });
     });
     popup.addEventListener('click', event => {
@@ -147,7 +150,7 @@ if (!reducedMotion.matches && 'IntersectionObserver' in window) {
 
 const canRender3D = window.matchMedia('(min-width: 801px)').matches && !reducedMotion.matches;
 if (canRender3D && document.querySelector('#scene')) {
-    import('./three-scene.js?v=20261115-3d-4')
+    import('./three-scene.js?v=20261115-3d-5')
         .then(module => module.initThreeScene())
         .catch(() => document.querySelector('[data-scene-loader]')?.remove());
 }

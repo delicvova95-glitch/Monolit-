@@ -268,7 +268,7 @@
             <label class="field"><span>Телефон *</span><input type="tel" name="phone" autocomplete="tel" maxlength="30" required placeholder="+7 ___ ___-__-__"><small data-error-for="phone"></small></label>
             <label class="field"><span>Брусчатка, м²</span><input type="number" name="paver_qty" min="0" max="1000000" step="0.1" value="0" inputmode="decimal"><small data-error-for="paver_qty"></small></label>
             <label class="field"><span>Бордюр, пог. м</span><input type="number" name="border_qty" min="0" max="1000000" step="0.1" value="0" inputmode="decimal"><small data-error-for="border_qty"></small></label>
-            <label class="field field-full"><span>Адрес доставки</span><input type="text" name="address" autocomplete="street-address" maxlength="250"><small data-error-for="address"></small></label>
+            <label class="field field-full"><span>Адрес доставки</span><input type="text" name="address" autocomplete="street-address" maxlength="250" placeholder="Если нужна доставка"><small data-error-for="address"></small></label>
             <label class="field field-full"><span>Комментарий</span><textarea name="comment" rows="3" maxlength="1500"></textarea><small data-error-for="comment"></small></label>
         </div>
         <label class="honeypot" aria-hidden="true">Сайт<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
@@ -334,5 +334,5 @@
 {% endblock %}
 
 {% block scripts %}
-<script type="module" src="{{ url_for('static', filename='js/main.js') }}?v=20261115-calc-3"></script>
+<script type="module" src="{{ url_for('static', filename='js/main.js') }}?v=20261115-mobile-2"></script>
 {% endblock %}

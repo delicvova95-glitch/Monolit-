@@ -270,6 +270,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
 
 .contact-widget{position:fixed;right:24px;bottom:24px;z-index:60;opacity:0;transform:translateY(16px);pointer-events:none;transition:opacity .35s var(--ease),transform .35s var(--ease)}
 .contact-widget.is-visible{opacity:1;transform:none;pointer-events:auto}
+.contact-widget:has(.contact-widget-popup[open]){opacity:1;transform:none;pointer-events:auto}
 body.menu-open .contact-widget{opacity:0;pointer-events:none}
 .contact-widget-button{display:inline-flex;align-items:center;gap:12px;min-height:64px;padding:17px 28px;border:1px solid rgba(226,197,141,.45);border-radius:999px;background:rgba(11,31,51,.97);color:#fff;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 16px 40px rgba(5,18,31,.28);backdrop-filter:blur(8px);transition:background .25s,border-color .25s,transform .25s}
 .contact-widget-button:hover{background:var(--navy-3);border-color:var(--gold);transform:translateY(-2px)}
@@ -371,7 +372,7 @@ body.menu-open .mobile-nav{opacity:0;pointer-events:none}
 .footer-grid{grid-template-columns:1fr;gap:30px}.footer-brand p{margin-top:16px}.footer-bottom{flex-wrap:wrap;gap:14px}.footer-bottom>span{width:100%}
 .lightbox{padding:70px 15px}.lightbox-close{right:15px;top:15px}.lightbox-arrow{top:auto;bottom:20px;transform:none}.lightbox-prev{left:calc(50% - 60px)}.lightbox-next{right:calc(50% - 60px)}
 .contact-widget{right:14px;bottom:80px}.contact-widget-button{min-height:58px;padding:15px 23px;font-size:14px}.contact-widget-button svg{width:20px;height:20px}
-.contact-widget-popup{inset:12px 12px 88px;width:auto;max-height:none;padding:28px 23px;border-radius:19px}.contact-widget-popup h2{font-size:23px}.contact-widget-intro{font-size:12px}.contact-widget-direct{padding:15px}.contact-widget-value{font-size:17px}
+.contact-widget-popup{inset:12px 12px 88px;width:auto;max-height:calc(100dvh - 100px);overflow-y:auto;-webkit-overflow-scrolling:touch;padding:28px 23px;border-radius:19px}.contact-widget-popup h2{font-size:23px}.contact-widget-intro{font-size:12px}.contact-widget-direct{padding:15px}.contact-widget-value{font-size:17px}
 .inner-page{padding-top:72px}.legal-warning{font-size:12px}
 }
 @media(max-width:380px){
@@ -541,7 +542,10 @@ html,body{overflow-x:clip}
 @media(max-width:800px){.hero-scene{display:none}}
 
 /* На мобильных убираем стрелочки в кнопках */
-@media(max-width:800px){.button [aria-hidden="true"],.text-link [aria-hidden="true"],.mobile-nav .mobile-nav-cta [aria-hidden="true"]{display:none}}
+@media(max-width:800px){.button [aria-hidden="true"],.text-link [aria-hidden="true"]{display:none}}
+
+/* На мобильных убираем полоски меню справа сверху — навигация через нижнюю панель */
+@media(max-width:800px){.menu-toggle{display:none}}
 
 /* Мобильная версия: упрощение и компактность */
 @media(max-width:800px){
