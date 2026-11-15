@@ -153,13 +153,13 @@ export function initThreeScene() {
             model.position.set(-center.x * model.scale.x, -bounds.min.y * model.scale.y, -center.z * model.scale.z);
             model.traverse(child => {
                 if (!child.isMesh) return;
-                child.material.color.set(0x858585);
+                child.material.color.set(0x969692);
                 child.material.metalness = 0;
-                child.material.roughness = .96;
-                child.material.envMapIntensity = .25;
+                child.material.roughness = .97;
+                child.material.envMapIntensity = .22;
                 // Мягкая фактура: приглушаем рельеф, чтобы поверхность выглядела спокойнее
-                if (child.material.normalMap) child.material.normalScale.set(.45, .45);
-                if (child.material.bumpMap) child.material.bumpScale *= .4;
+                if (child.material.normalMap) child.material.normalScale.set(.25, .25);
+                if (child.material.bumpMap) child.material.bumpScale *= .25;
                 if (child.material.roughnessMap) child.material.roughness = 1;
                 child.castShadow = true;
             });

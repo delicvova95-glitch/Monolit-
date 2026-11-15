@@ -544,6 +544,14 @@ html,body{overflow-x:clip}
 /* На мобильных убираем стрелочки в кнопках */
 @media(max-width:800px){.button [aria-hidden="true"],.text-link [aria-hidden="true"]{display:none}}
 
+/* Примеры работ: на десктопе весь раздел помещается в экран */
+@media(min-width:801px){.gallery-grid{grid-auto-rows:min(280px,23vh)}}
+@media(min-width:801px) and (max-height:820px){.gallery-grid{grid-auto-rows:min(210px,20vh)}}
+@media(min-width:801px) and (max-height:680px){.gallery-grid{grid-auto-rows:min(180px,18vh)}}
+
+/* На мобильных убираем вторую кнопку «Смотреть продукцию» на первом экране */
+@media(max-width:800px){.hero-reveal .button{display:none}}
+
 /* На мобильных убираем полоски меню справа сверху — навигация через нижнюю панель */
 @media(max-width:800px){.menu-toggle{display:none}}
 
