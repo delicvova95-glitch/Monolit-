@@ -66,7 +66,7 @@ export function initThreeScene() {
 
     const shadowCatcher = new THREE.Mesh(
         new THREE.PlaneGeometry(6.5, 6.5),
-        new THREE.ShadowMaterial({ opacity: .3 }),
+        new THREE.ShadowMaterial({ opacity: .22 }),
     );
     shadowCatcher.rotation.x = -Math.PI / 2;
     shadowCatcher.position.y = -.06;
@@ -118,7 +118,7 @@ export function initThreeScene() {
         root.rotation.y = THREE.MathUtils.lerp(-.5, -.5 - Math.PI * .72, turn);
         root.rotation.z = THREE.MathUtils.lerp(-.05, 0, turn);
         // Тень опускается вместе с поворотом плитки и не заходит на её грани
-        shadowCatcher.position.y = THREE.MathUtils.lerp(-.06, -.5, turn);
+        shadowCatcher.position.y = THREE.MathUtils.lerp(-.3, -.5, turn);
         // При появлении текста плитка уступает место слева
         root.position.x = THREE.MathUtils.lerp(0, .62, THREE.MathUtils.smoothstep(currentProgress, .55, .9));
         root.position.y = THREE.MathUtils.lerp(0, .12, turn);
