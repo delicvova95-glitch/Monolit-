@@ -196,7 +196,7 @@
                 </article>
                 <article class="feature-card">
                     <div class="feature-top"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="6" y="3" width="20" height="26" rx="2"/><path d="M10 8h12M11 14h2m6 0h2m-10 5h2m6 0h2m-10 5h2m6 0h2"/></svg><span class="feature-index">04</span></div>
-                    <h3>Расчёт под ваш участок</h3><p>Укажите площадь мощения и длину границ — посчитаем количество изделий.</p>
+                    <h3>Расчёт под ваш участок</h3><p>Укажите площадь мощения и длину границ — посчитаем стоимость изделий.</p>
                 </article>
                 <article class="feature-card">
                     <div class="feature-top"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 6h17v17H3zM20 12h5l4 5v6h-9z"/><circle cx="9" cy="25" r="3"/><circle cx="24" cy="25" r="3"/></svg><span class="feature-index">05</span></div>
@@ -224,12 +224,12 @@
     <div class="gallery-grid gallery-illustrative" data-gallery>
         {% set examples = [
             ('work-2.webp', 'Дорожка из брусчатки ёлочкой', 846, 1128),
-            ('work-pavers-round.webp', 'Мощение из бетонной брусчатки', 594, 382),
+            ('work-pavers-round.webp', 'Мощение из бетонной брусчатки', 594, 184),
             ('work-house.webp', 'Дорожки и площадка у частного дома', 755, 892),
         ] %}
         {% for file, caption, w, h in examples %}
-        <button class="gallery-item" type="button" data-gallery-index="{{ loop.index0 }}" data-full="{{ url_for('static', filename='images/works/' + file) }}?v=20261111" data-caption="{{ caption }}" aria-label="Увеличить фотографию: {{ caption }}">
-            <img src="{{ url_for('static', filename='images/works/' + file) }}?v=20261111" alt="{{ caption }}" loading="lazy" width="{{ w }}" height="{{ h }}">
+        <button class="gallery-item" type="button" data-gallery-index="{{ loop.index0 }}" data-full="{{ url_for('static', filename='images/works/' + file) }}?v=20261115-gallery-1" data-caption="{{ caption }}" aria-label="Увеличить фотографию: {{ caption }}">
+            <img src="{{ url_for('static', filename='images/works/' + file) }}?v=20261115-gallery-1" alt="{{ caption }}" loading="lazy" width="{{ w }}" height="{{ h }}">
         </button>
         {% endfor %}
     </div>
@@ -334,5 +334,5 @@
 {% endblock %}
 
 {% block scripts %}
-<script type="module" src="{{ url_for('static', filename='js/main.js') }}?v=20261115-polish-1"></script>
+<script type="module" src="{{ url_for('static', filename='js/main.js') }}?v=20261115-gallery-1"></script>
 {% endblock %}

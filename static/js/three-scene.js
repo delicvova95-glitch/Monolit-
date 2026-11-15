@@ -154,6 +154,9 @@ export function initThreeScene() {
             model.traverse(child => {
                 if (!child.isMesh) return;
                 child.material.color.set(0x969692);
+                // Однородный цвет: убираем цветную текстуру и вершинные цвета, чтобы не было пятен и квадратов
+                child.material.map = null;
+                child.material.vertexColors = false;
                 child.material.metalness = 0;
                 child.material.roughness = .97;
                 child.material.envMapIntensity = .22;
@@ -161,6 +164,7 @@ export function initThreeScene() {
                 if (child.material.normalMap) child.material.normalScale.set(.25, .25);
                 if (child.material.bumpMap) child.material.bumpScale *= .25;
                 if (child.material.roughnessMap) child.material.roughness = 1;
+                child.material.needsUpdate = true;
                 child.castShadow = true;
             });
             root.add(model);
