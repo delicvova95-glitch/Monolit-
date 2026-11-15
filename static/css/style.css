@@ -641,3 +641,14 @@ html,body{overflow-x:clip}
 .header-social{display:none}
 .site-nav{left:45%}
 }
+
+/* Ноутбуки 1101-1500px: полная шапка — лого, меню, мессенджеры, телефон/почта, заявка (всё уменьшено) */
+@media(min-width:1101px) and (max-width:1500px){
+.site-header{gap:12px;padding:0 18px}
+.brand-logo{height:40px;width:auto}
+.site-nav{left:47%;gap:12px;font-size:12px}
+.header-contacts{display:flex;font-size:11.5px;max-width:230px;gap:2px}
+.header-social{display:flex;margin-left:0;gap:8px}
+.header-social a{width:30px;height:30px}
+.header-cta{font-size:12.5px;min-height:40px;padding:0 14px}
+}
