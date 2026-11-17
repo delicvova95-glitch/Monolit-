@@ -310,37 +310,32 @@ def callback_secret():
     ).hexdigest()[:32]
 
 
+def account_entry_text(order):
+    return "\n".join([
+        f"🧾 Учёт — заявка №{order['id']}",
+        f"Имя клиента: {order['name']}",
+        f"Телефон: {order['phone']}",
+        f"Плитка: {order['paver_qty']} м²",
+        f"Поребрик: {order['border_qty']} шт.",
+        f"Адрес: {order['address'] or 'не указан'}",
+        f"Комментарий: {order['comment'] or 'нет'}",
+        f"Дата: {order['created_at']}",
+    ])
+
+
 def send_to_uchot(order_id):
-    """Передаёт заявку во внешнюю систему учёта (если настроена)."""
-    url = app.config["UCHOT_API_URL"]
-    key = app.config["UCHOT_API_KEY"]
-    if not url or not key:
+    """Вносит заявку в учёт: бот отправляет запись в учётный чат Telegram."""
+    chat_id = app.config["TELEGRAM_ACCOUNT_CHAT_ID"] or app.config["TELEGRAM_CHAT_ID"]
+    if not chat_id:
         return False
     db = get_db()
     order = db.execute("SELECT * FROM orders WHERE id = ?", (order_id,)).fetchone()
     if not order:
         return False
-    payload = json.dumps({
-        "order_id": order["id"],
-        "name": order["name"],
-        "phone": order["phone"],
-        "paver_qty": order["paver_qty"],
-        "border_qty": order["border_qty"],
-        "city": order["city"],
-        "address": order["address"],
-        "comment": order["comment"],
-        "source": "tomskmonolit.ru",
-    }).encode()
-    req = urllib.request.Request(url, data=payload, headers={
-        "Content-Type": "application/json",
-        "X-API-Key": key,
+    return telegram_api("sendMessage", {
+        "chat_id": chat_id,
+        "text": account_entry_text(order),
     })
-    try:
-        with urllib.request.urlopen(req, timeout=8) as response:
-            return 200 <= response.status < 300
-    except Exception as error:
-        app.logger.error("Учёт не принял заявку %s (%s)", order_id, type(error).__name__)
-        return False
 
 
 def send_telegram(order):
