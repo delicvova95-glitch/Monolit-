@@ -38,6 +38,8 @@ class Config:
     TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
     TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "")
     TELEGRAM_CALLBACK_SECRET = os.environ.get("TELEGRAM_CALLBACK_SECRET", "")
+    UCHOT_API_URL = os.environ.get("UCHOT_API_URL", "")
+    UCHOT_API_KEY = os.environ.get("UCHOT_API_KEY", "")
     SMTP_HOST = os.environ.get("SMTP_HOST", "")
     SMTP_PORT = int(os.environ.get("SMTP_PORT", "587"))
     SMTP_USERNAME = os.environ.get("SMTP_USERNAME", "")

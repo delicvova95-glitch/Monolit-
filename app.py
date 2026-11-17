@@ -310,6 +310,39 @@ def callback_secret():
     ).hexdigest()[:32]
 
 
+def send_to_uchot(order_id):
+    """Передаёт заявку во внешнюю систему учёта (если настроена)."""
+    url = app.config["UCHOT_API_URL"]
+    key = app.config["UCHOT_API_KEY"]
+    if not url or not key:
+        return False
+    db = get_db()
+    order = db.execute("SELECT * FROM orders WHERE id = ?", (order_id,)).fetchone()
+    if not order:
+        return False
+    payload = json.dumps({
+        "order_id": order["id"],
+        "name": order["name"],
+        "phone": order["phone"],
+        "paver_qty": order["paver_qty"],
+        "border_qty": order["border_qty"],
+        "city": order["city"],
+        "address": order["address"],
+        "comment": order["comment"],
+        "source": "tomskmonolit.ru",
+    }).encode()
+    req = urllib.request.Request(url, data=payload, headers={
+        "Content-Type": "application/json",
+        "X-API-Key": key,
+    })
+    try:
+        with urllib.request.urlopen(req, timeout=8) as response:
+            return 200 <= response.status < 300
+    except Exception as error:
+        app.logger.error("Учёт не принял заявку %s (%s)", order_id, type(error).__name__)
+        return False
+
+
 def send_telegram(order):
     token = app.config["TELEGRAM_BOT_TOKEN"]
     chat_id = app.config["TELEGRAM_CHAT_ID"]
@@ -410,7 +443,12 @@ def telegram_callback(secret):
             if order:
                 db.execute("UPDATE orders SET in_account = 1 WHERE id = ?", (order_id,))
                 db.commit()
-                answer["text"] = f"Заявка №{order_id} отправлена в учёт ✅"
+                uchot_ok = send_to_uchot(order_id)
+                answer["text"] = (
+                    f"Заявка №{order_id} отправлена в учёт ✅"
+                    if uchot_ok else
+                    f"Заявка №{order_id} отмечена, но внешний учёт не ответил ⚠️"
+                )
                 message = query.get("message") or {}
                 telegram_api("editMessageReplyMarkup", {
                     "chat_id": message.get("chat", {}).get("id"),
