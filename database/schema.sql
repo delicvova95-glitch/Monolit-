@@ -21,7 +21,8 @@ CREATE TABLE IF NOT EXISTS orders (
     comment TEXT NOT NULL DEFAULT '',
     status TEXT NOT NULL DEFAULT 'new' CHECK(status IN ('new', 'processing', 'completed', 'cancelled')),
     telegram_sent INTEGER NOT NULL DEFAULT 0,
-    email_sent INTEGER NOT NULL DEFAULT 0
+    email_sent INTEGER NOT NULL DEFAULT 0,
+    in_account INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE IF NOT EXISTS settings (

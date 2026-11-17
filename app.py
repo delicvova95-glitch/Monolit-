@@ -112,9 +112,12 @@ def init_db():
         ),
     )
     db.commit()
-
-
-app.teardown_appcontext(close_db)
+    # Миграции для существующих баз
+    try:
+        db.execute("ALTER TABLE orders ADD COLUMN in_account INTEGER NOT NULL DEFAULT 0")
+        db.commit()
+    except sqlite3.OperationalError:
+        pass  # колонка уже есть
 
 
 @app.cli.command("init-db")
@@ -153,7 +156,7 @@ def public_settings():
 @app.before_request
 def protect_request():
     g.csp_nonce = secrets.token_urlsafe(18)
-    if request.method == "POST":
+    if request.method == "POST" and not request.path.startswith("/api/telegram/"):
         token = request.form.get("_csrf", "") or request.headers.get("X-CSRF-Token", "")
         if not token or not hmac.compare_digest(token, session.get("_csrf", "")):
             abort(400, "Сессия формы устарела. Обновите страницу и повторите действие.")
@@ -281,12 +284,44 @@ def notification_text(order):
     ])
 
 
+def telegram_api(method, payload):
+    token = app.config["TELEGRAM_BOT_TOKEN"]
+    if not token:
+        return False
+    req = urllib.request.Request(
+        f"https://api.telegram.org/bot{token}/{method}",
+        data=json.dumps(payload).encode(),
+        headers={"Content-Type": "application/json"},
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=5) as response:
+            return 200 <= response.status < 300
+    except Exception as error:
+        app.logger.error("Telegram API %s не ответил (%s)", method, type(error).__name__)
+        return False
+
+
+def callback_secret():
+    override = app.config.get("TELEGRAM_CALLBACK_SECRET")
+    if override:
+        return override
+    return hmac.new(
+        app.config["SECRET_KEY"].encode(), b"telegram-callback", "sha256"
+    ).hexdigest()[:32]
+
+
 def send_telegram(order):
     token = app.config["TELEGRAM_BOT_TOKEN"]
     chat_id = app.config["TELEGRAM_CHAT_ID"]
     if not token or not chat_id:
         return False
-    payload = json.dumps({"chat_id": chat_id, "text": notification_text(order)}).encode()
+    payload = json.dumps({
+        "chat_id": chat_id,
+        "text": notification_text(order),
+        "reply_markup": {"inline_keyboard": [[
+            {"text": "📤 Отправить в учёт", "callback_data": f"account:{order['id']}"}
+        ]]},
+    }).encode()
     req = urllib.request.Request(
         f"https://api.telegram.org/bot{token}/sendMessage",
         data=payload, headers={"Content-Type": "application/json"},
@@ -354,6 +389,42 @@ def create_order():
         "ok": True, "order_id": order["id"],
         "message": "Заявка сохранена. Мы свяжемся с вами для уточнения деталей.",
     }), 201
+
+
+@app.post("/api/telegram/callback/<secret>")
+def telegram_callback(secret):
+    """Нажатие кнопки «Отправить в учёт» в уведомлении бота (Telegram webhook)."""
+    if not hmac.compare_digest(secret, callback_secret()):
+        abort(404)
+    update = request.get_json(silent=True) or {}
+    query = update.get("callback_query") or {}
+    data = query.get("data", "")
+    if query.get("id"):
+        answer = {"callback_query_id": query["id"]}
+        if data.startswith("account:"):
+            order_id = data.split(":", 1)[1]
+            if not order_id.isdigit():
+                abort(400)
+            db = get_db()
+            order = db.execute("SELECT id FROM orders WHERE id = ?", (order_id,)).fetchone()
+            if order:
+                db.execute("UPDATE orders SET in_account = 1 WHERE id = ?", (order_id,))
+                db.commit()
+                answer["text"] = f"Заявка №{order_id} отправлена в учёт ✅"
+                message = query.get("message") or {}
+                telegram_api("editMessageReplyMarkup", {
+                    "chat_id": message.get("chat", {}).get("id"),
+                    "message_id": message.get("message_id"),
+                    "reply_markup": {"inline_keyboard": [[
+                        {"text": "✅ В учёте", "callback_data": "noop"}
+                    ]]},
+                })
+            else:
+                answer["text"] = "Заявка не найдена."
+        else:
+            answer["text"] = "Уже обработано."
+        telegram_api("answerCallbackQuery", answer)
+    return jsonify({"ok": True})
 
 
 def admin_required(view):

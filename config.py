@@ -37,6 +37,7 @@ class Config:
     ADMIN_PASSWORD_HASH = os.environ.get("ADMIN_PASSWORD_HASH", "")
     TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
     TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "")
+    TELEGRAM_CALLBACK_SECRET = os.environ.get("TELEGRAM_CALLBACK_SECRET", "")
     SMTP_HOST = os.environ.get("SMTP_HOST", "")
     SMTP_PORT = int(os.environ.get("SMTP_PORT", "587"))
     SMTP_USERNAME = os.environ.get("SMTP_USERNAME", "")

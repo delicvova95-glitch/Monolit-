@@ -11,7 +11,7 @@
 <nav class="filters" aria-label="Фильтр заявок"><a href="{{ url_for('admin_dashboard') }}" {% if not current_status %}class="active"{% endif %}>Все заявки</a>{% for key, label in order_statuses.items() %}<a href="{{ url_for('admin_dashboard', status=key) }}" {% if current_status == key %}class="active"{% endif %}>{{ label }}</a>{% endfor %}</nav>
 {% if orders %}
 <div class="table-wrap"><table class="orders-table"><thead><tr><th>Заявка</th><th>Клиент</th><th>Брусчатка</th><th>Бордюр</th><th>Населённый пункт</th><th>Статус</th></tr></thead><tbody>
-{% for order in orders %}<tr><td><a class="order-link" href="{{ url_for('admin_order', order_id=order.id) }}">№{{ order.id }}</a><span class="order-phone">{{ order.created_at }}</span></td><td>{{ order.name }}<a class="order-phone" href="tel:{{ order.phone }}">{{ order.phone }}</a></td><td>{{ order.paver_qty }} шт.</td><td>{{ order.border_qty }} шт.</td><td>{{ order.city }}</td><td><span class="status status-{{ order.status }}">{{ order_statuses[order.status] }}</span></td></tr>{% endfor %}
+{% for order in orders %}<tr><td><a class="order-link" href="{{ url_for('admin_order', order_id=order.id) }}">№{{ order.id }}</a><span class="order-phone">{{ order.created_at }}</span></td><td>{{ order.name }}<a class="order-phone" href="tel:{{ order.phone }}">{{ order.phone }}</a></td><td>{{ order.paver_qty }} м²</td><td>{{ order.border_qty }} пог. м</td><td>{{ order.city }}</td><td><span class="status status-{{ order.status }}">{{ order_statuses[order.status] }}</span>{% if order.in_account %}<span class="status status-account">В учёте</span>{% endif %}</td></tr>{% endfor %}
 </tbody></table></div>
 {% else %}<div class="empty">В этой категории пока нет заявок.</div>{% endif %}
 {% endblock %}
