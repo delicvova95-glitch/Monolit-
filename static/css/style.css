@@ -695,3 +695,6 @@ html,body{overflow-x:clip}
 @media (min-width:801px) and (max-width:900px){
 .delivery .section-heading{grid-template-columns:1fr 1fr;gap:28px}
 }
+
+/* Subtle warm highlight for pickup information. */
+.delivery-note{background:#f4efe4;border-color:#d5bd91}
