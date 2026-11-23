@@ -698,3 +698,15 @@ html,body{overflow-x:clip}
 
 /* Subtle warm highlight for pickup information. */
 .delivery-note{background:#f4efe4;border-color:#d5bd91}
+
+.delivery-note {
+    background: #f2e7cd;
+    border-color: #d4b476;
+}
+.delivery-note h3 {
+    font-size: clamp(18px, 1.45vw, 22px);
+}
+.delivery-note p {
+    font-size: clamp(15px, 1.2vw, 18px);
+    line-height: 1.75;
+}
