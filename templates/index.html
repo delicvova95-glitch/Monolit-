@@ -2,7 +2,7 @@
 
 {% block body_class %}home-page{% endblock %}
 
-{% block head %}
+{% block head %} <script type="application/ld+json" nonce="{{ g.csp_nonce }}"> {     "@context": "https://schema.org",     "@type": "WebSite",     "name": "Томск Монолит",     "url": "https://tomskmonolit.ru/" } </script>
 <script type="importmap" nonce="{{ g.csp_nonce }}">
 {
     "imports": {
