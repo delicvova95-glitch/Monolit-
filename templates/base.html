@@ -6,18 +6,18 @@
     <meta name="theme-color" content="#0b1f33">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     {% block meta %}
-    <title>Томск Монолит — тротуарная плитка и бетонные бордюры</title>
-    <meta name="description" content="Производство и продажа бетонной брусчатки и бордюров в Томске. Расчёт количества материалов и доставка по Томску и Томской области.">
+    <title>Томск Монолит — тротуарная плитка и бордюры</title>
+    <meta name="description" content="Тротуарная плитка и бордюры в Томске. Рассчитайте стоимость и закажите доставку по Томску и области.">
     {% endblock %}
     <meta property="og:type" content="website">
     <meta property="og:locale" content="ru_RU">
     <meta property="og:site_name" content="Томск Монолит">
-    <meta property="og:title" content="Томск Монолит — бетонные изделия для благоустройства">
+    <meta property="og:title" content="Томск Монолит — тротуарная плитка и бордюры">
     <meta property="og:description" content="Брусчатка и бордюры для дорожек, дворов и современных пространств.">
     <meta property="og:image" content="{{ url_for('static', filename='images/og-cover.jpg', _external=True) }}">
     <meta property="og:url" content="{{ request.base_url }}">
     <link rel="canonical" href="{{ request.base_url }}">
-    <link rel="icon" href="{{ url_for('static', filename='images/logo-mark.png') }}?v=20261108" type="image/png">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon-navy.png') }}" type="image/png" sizes="192x192">
     <link rel="preload" href="{{ url_for('static', filename='fonts/manrope-cyrillic.woff2') }}" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=20261115-polish-8">
     {% block head %}{% endblock %}
